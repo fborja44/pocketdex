@@ -1,0 +1,16 @@
+{
+	"manifest_version": 3,
+	"version": "0.1.0",
+	"name": "Pocketdex",
+	"action": {
+		"default_popup": "index.html"
+	},
+	"permissions": ["scripting"],
+	"host_permissions": ["http://*/*", "https://*/*"],
+	"icons": {
+		"16": "/assets/icons/icon16.png",
+		"32": "/assets/icons/icon32.png",
+		"48": "/assets/icons/icon48.png",
+		"128": "/assets/icons/icon128.png"
+	}
+}

@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	@font-face {
+		font-family: 'Power Green Small';
+		src: url(/public/assets/fonts/PowerGreenSmall.ttf) format('ttf');
+	}
+}
+
+#root {
+	@apply font-sans;
+	box-sizing: border-box;
+}
+
+html {
+	border-radius: 10px;
+	width: 350px;
+	height: 600px;
+
+	background-image: url(../assets/img/background.png);
+	object-fit: cover;
+	background-position: center;
+	background-size: cover;
+	backdrop-filter: blur(2px);
+}
+
+.container-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.container-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.container-col {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
