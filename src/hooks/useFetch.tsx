@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const useFetch = (endpoint: string) => {
+const useFetch = (endpoint: string, query: string) => {
 	const base = 'https://pokeapi.co/api/v2/';
 
 	const [data, setData] = useState<any | null>(null);
@@ -13,7 +13,7 @@ const useFetch = (endpoint: string) => {
 		setError(null);
 		try {
 			console.log('Fetching data...');
-			const response = await axios.get(`${base}/${endpoint}/pikachu`);
+			const response = await axios.get(`${base}/${endpoint}/${query}`);
 			console.log(response.data);
 			setData(response.data);
 		} catch (err) {
