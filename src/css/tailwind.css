@@ -16,8 +16,8 @@
 
 html {
 	border-radius: 10px;
-	width: 350px;
-	height: 600px;
+	width: 250px;
+	height: 400px;
 
 	background-image: url(../assets/img/background.png);
 	object-fit: cover;

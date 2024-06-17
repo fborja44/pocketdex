@@ -5,7 +5,7 @@ interface TypeLabelProps {
 }
 
 const TypeLabel = ({ type }: TypeLabelProps) => {
-	return <img src={`/assets/img/types/${type}.png`} alt='' className='w-14' />;
+	return <img src={`/assets/img/types/${type}.png`} alt='' className='w-11' />;
 };
 
 export default TypeLabel;

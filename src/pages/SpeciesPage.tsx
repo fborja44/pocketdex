@@ -22,36 +22,36 @@ const Species = () => {
 	}
 
 	return (
-		<div className='flex flex-col relative w-screen h-screen p-4'>
+		<div className='flex flex-col relative w-screen h-screen p-2'>
 			<TypeBackground type={data.types[0].type.name} />
 			<Searchbar />
 			<div className='flex flex-row items-start'>
 				<button>
-					<img src={LeftArrow} className='h-7' />
+					<img src={LeftArrow} className='h-5' />
 				</button>
-				<div className='container-col w-full items-start'>
-					<div className='text-4xl uppercase text-gray-700 leading-5'>
+				<div className='container-col w-full items-start z-20'>
+					<div className='text-2xl uppercase text-gray-700 leading-5'>
 						{data.name ?? 'Unknown Species'}
 					</div>
-					<div className='text-xl leading-relaxed text-gray-500'>
+					<div className='text-md text-gray-500 leading-snug'>
 						{formatId(data.id)}
 					</div>
 				</div>
 				<button>
-					<img src={RightArrow} className='h-7' />
+					<img src={RightArrow} className='h-5' />
 				</button>
 			</div>
-			<div className='flex items-end self-center h-32'>
+			<div className='flex items-end self-center h-24'>
 				<img
 					src={
 						data.sprites.versions['generation-v']['black-white'].animated
 							.front_default
 					}
 					alt=''
-					className='scale-250 ml-6'
+					className='scale-175'
 				/>
 			</div>
-			<div className='container-row justify-between w-full mt-20'>
+			<div className='container-row justify-between w-full mt-9 text-sm z-10'>
 				<button>Catch</button>
 				<div className='container-row gap-x-2'>
 					{data.types.map((entry: any) => (
