@@ -6,93 +6,93 @@ import { formatId } from '../utils/string';
 import TypeLabel from '../components/TypeLabel/TypeLabel';
 import { useState } from 'react';
 import Statbar from '../components/Statbar/Statbar';
-
-import ErrorPage from './ErrorPage';
 import { Type } from '../types';
 import usePokemon from '../hooks/usePokemon';
+import { MAX_POKEMON_ID, MIN_POKEMON_ID } from '../constants';
+import PageLayout from '../components/PageLayout/PageLayout';
+import { ErrorBody } from './ErrorPage';
 
 const Species = () => {
-	const [id, setId] = useState(1);
+	const [id, setId] = useState<number>(1);
 
-	const { data, error, fetchData } = usePokemon();
+	const { data, error, loading, fetchPokemon } = usePokemon();
 
-	if (error) {
-		return <ErrorPage message={error.toString()} />;
-	}
+	const handleBrowse = (newId: number) => {
+		setId(newId);
+		fetchPokemon(newId.toString());
+	};
 
-	if (!data) {
-		return <ErrorPage message={'Failed to find species data.'} />;
+	const handleSearch = (searchTerm: string | number) => {
+		fetchPokemon(searchTerm.toString().toLowerCase());
+	};
+
+	if (error && loading) {
+		return null;
 	}
 
 	return (
-		<div className='flex flex-col relative w-screen h-screen p-2'>
-			<TypeBackground type={data.types[0].type.name as Type} />
-			<Searchbar />
-			<div className='flex flex-row items-start'>
-				<button
-					disabled={id === 1}
-					onClick={() => {
-						setId((prevId) => {
-							const newId = prevId - 1;
-							fetchData(newId.toString());
-							return newId;
-						});
-					}}
-				>
-					<img src={LeftArrow} className='h-5' />
-				</button>
-				<div className='container-col w-full items-start z-20'>
-					<h1 className='text-2xl uppercase text-gray-700 leading-5'>
-						{data.name ?? 'Unknown Species'}
-					</h1>
-					<div className='text-md text-gray-500 leading-snug'>
-						{formatId(data.id)}
+		<PageLayout>
+			<Searchbar handleSearch={handleSearch} placeholder='Enter a pokemon' />
+			{!error && data ? (
+				<>
+					<TypeBackground type={data.types[0].type.name as Type} />
+					<div className='flex flex-row items-start'>
+						<button
+							disabled={id === MIN_POKEMON_ID}
+							onClick={() => handleBrowse(data.id - 1)}
+						>
+							<img src={LeftArrow} className='h-5' />
+						</button>
+						<div className='container-col w-full items-start z-20'>
+							<h1 className='text-2xl uppercase text-gray-700 leading-5'>
+								{data.name ?? 'Unknown Species'}
+							</h1>
+							<div className='text-md text-gray-500 leading-snug'>
+								{formatId(data.id)}
+							</div>
+						</div>
+						<button
+							disabled={id === MAX_POKEMON_ID}
+							onClick={() => handleBrowse(data.id + 1)}
+						>
+							<img src={RightArrow} className='h-5' />
+						</button>
 					</div>
-				</div>
-				<button
-					disabled={id === 1025}
-					onClick={() =>
-						setId((prevId) => {
-							const newId = prevId + 1;
-							fetchData(newId.toString());
-							return newId;
-						})
-					}
-				>
-					<img src={RightArrow} className='h-5' />
-				</button>
-			</div>
-			<div className='flex items-end self-center h-24'>
-				<img
-					src={
-						data.sprites.versions['generation-v']['black-white'].animated
-							.front_default ?? ''
-					}
-					alt=''
-					className='scale-175'
-				/>
-			</div>
-			<div className='container-row justify-between w-full mt-9 text-sm z-10'>
-				<button>Catch</button>
-				<div className='container-row gap-x-2'>
-					{data.types.map((entry: any) => (
-						<TypeLabel
-							type={entry.type.name}
-							key={`${entry.type.name}-label`}
+					<div className='flex items-end self-center h-24'>
+						<img
+							src={
+								data.sprites.versions['generation-v']['black-white'].animated
+									.front_default ?? ''
+							}
+							alt=''
+							className='scale-175'
 						/>
-					))}
-				</div>
-				<button>Male</button>
-			</div>
-			<div className='flex flex-col mt-2'>
-				<h2 className='text-lg'>Base Stats</h2>
-				<div className='grid grid-cols-stats items-center gap-x-1'>
-					{data.stats.map((statData: any) => (
-						<SpeciesStat statData={statData} />
-					))}
-				</div>
-			</div>
-		</div>
+					</div>
+					<div className='container-row justify-between w-full mt-9 text-sm z-10'>
+						<button>Catch</button>
+						<div className='container-row gap-x-2'>
+							{data.types.map((entry) => (
+								<TypeLabel
+									type={entry.type.name as Type}
+									key={`${entry.type.name}-label`}
+								/>
+							))}
+						</div>
+						<button>Male</button>
+					</div>
+					<div className='flex flex-col mt-2'>
+						<h2 className='text-lg'>Base Stats</h2>
+						<div className='grid grid-cols-stats items-center gap-x-1'>
+							{data.stats.map((statData) => (
+								<SpeciesStat statData={statData} key={statData.stat.name} />
+							))}
+						</div>
+					</div>
+				</>
+			) : (
+				<ErrorBody message={'Failed to find species data.'} />
+			)}
+		</PageLayout>
 	);
 };
 
@@ -126,13 +126,12 @@ const SpeciesStat = ({ statData }: SpeciesStatProps) => {
 	}
 	// Calculate width of stat bar display
 	const width =
-		Math.min(Math.floor(5 + (statData.base_stat / 255) * 120 * 1.15), 120) +
-		'px';
+		Math.min(Math.floor((statData.base_stat / 255) * 120 * 1.3), 120) + 'px';
 
 	let color = '';
-	if (statData.base_stat > 200) {
+	if (statData.base_stat > 185) {
 		color = 'bg-cyan-500';
-	} else if (statData.base_stat > 120) {
+	} else if (statData.base_stat > 119) {
 		color = 'bg-green-500';
 	} else if (statData.base_stat > 100) {
 		color = 'bg-lime-500';
