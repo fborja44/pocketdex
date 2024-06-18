@@ -7,7 +7,7 @@ const Searchbar = () => {
 	return (
 		<div className='container-row relative mb-2.5'>
 			<input
-				className='bg-white w-full text-md px-2 py-[2px] uppercase placeholder:text-gray-300 text-gray-700 border-b-2 border-r-2 border-twilight outline-none'
+				className='bg-white w-full text-sm px-2 py-[1px] uppercase placeholder:text-gray-300 text-gray-700 border-b-2 border-r-2 border-twilight outline-none'
 				placeholder='Enter your search'
 				value={searchTerm}
 				onChange={(ev) => setSearchTerm(ev.target.value)}

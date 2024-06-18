@@ -17,13 +17,15 @@
 html {
 	border-radius: 10px;
 	width: 250px;
-	height: 400px;
+	height: 420px;
 
 	background-image: url(../assets/img/background.png);
 	object-fit: cover;
 	background-position: center;
 	background-size: cover;
 	backdrop-filter: blur(2px);
+
+	color: theme('colors.gray.700');
 }
 
 .container-center {

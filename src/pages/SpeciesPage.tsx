@@ -5,20 +5,25 @@ import RightArrow from '../assets/sprites/ui/right-arrow.png';
 import useFetch from '../hooks/useFetch';
 import { formatId } from '../utils/string';
 import TypeLabel from '../components/TypeLabel/TypeLabel';
+import { useState } from 'react';
+import ErrorPage from './ErrorPage';
+import Statbar from '../components/Statbar/Statbar';
 
 const Species = () => {
-	const { data, loading, error } = useFetch('pokemon', 'pikachu');
+	const [id, setId] = useState(1);
 
-	if (loading) {
-		return null;
-	}
+	const { data, error, fetchData } = useFetch('pokemon');
+
+	// if (loading) {
+	// 	return null;
+	// }
 
 	if (error) {
-		return <div>{error.toString()}</div>;
+		return <ErrorPage message={error.toString()} />;
 	}
 
 	if (!data) {
-		return <div>Failed to species data.</div>;
+		return <ErrorPage message={'Failed to find species data.'} />;
 	}
 
 	return (
@@ -26,18 +31,36 @@ const Species = () => {
 			<TypeBackground type={data.types[0].type.name} />
 			<Searchbar />
 			<div className='flex flex-row items-start'>
-				<button>
+				<button
+					disabled={id === 1}
+					onClick={() => {
+						setId((prevId) => {
+							const newId = prevId - 1;
+							fetchData(newId);
+							return newId;
+						});
+					}}
+				>
 					<img src={LeftArrow} className='h-5' />
 				</button>
 				<div className='container-col w-full items-start z-20'>
-					<div className='text-2xl uppercase text-gray-700 leading-5'>
+					<h1 className='text-2xl uppercase text-gray-700 leading-5'>
 						{data.name ?? 'Unknown Species'}
-					</div>
+					</h1>
 					<div className='text-md text-gray-500 leading-snug'>
 						{formatId(data.id)}
 					</div>
 				</div>
-				<button>
+				<button
+					disabled={id === 1025}
+					onClick={() =>
+						setId((prevId) => {
+							const newId = prevId + 1;
+							fetchData(newId);
+							return newId;
+						})
+					}
+				>
 					<img src={RightArrow} className='h-5' />
 				</button>
 			</div>
@@ -63,8 +86,78 @@ const Species = () => {
 				</div>
 				<button>Male</button>
 			</div>
+			<div className='flex flex-col mt-2'>
+				<h2 className='text-lg'>Base Stats</h2>
+				<div className='grid grid-cols-stats items-center gap-x-1'>
+					{data.stats.map((statData: any) => (
+						<SpeciesStat statData={statData} />
+					))}
+				</div>
+			</div>
 		</div>
 	);
 };
 
 export default Species;
+
+interface SpeciesStatProps {
+	statData: {
+		base_stat: number;
+		effort: number;
+		stat: {
+			name: string;
+			url: string;
+		};
+	};
+}
+
+const SpeciesStat = ({ statData }: SpeciesStatProps) => {
+	switch (statData.stat.name) {
+		case 'hp': {
+			statData.stat.name = 'health';
+			break;
+		}
+		case 'special-attack': {
+			statData.stat.name = 'sp. attack';
+			break;
+		}
+		case 'special-defense': {
+			statData.stat.name = 'sp. def';
+			break;
+		}
+	}
+	// Calculate width of stat bar display
+	const width =
+		Math.min(Math.floor(10 + (statData.base_stat / 255) * 120 * 1.1), 120) +
+		'px';
+
+	let color = '';
+	if (statData.base_stat > 200) {
+		color = 'bg-cyan-500';
+	} else if (statData.base_stat > 120) {
+		color = 'bg-green-500';
+	} else if (statData.base_stat > 100) {
+		color = 'bg-lime-500';
+	} else if (statData.base_stat > 80) {
+		color = 'bg-orange-500';
+	} else if (statData.base_stat > 50) {
+		color = 'bg-yellow-500';
+	} else {
+		color = 'bg-red-500';
+	}
+
+	return (
+		<>
+			<div className='text-sm capitalize'>{statData.stat.name}</div>
+			<div className='text-md justify-self-center'>{statData.base_stat}</div>
+			<div className='relative'>
+				<Statbar />
+				<span
+					style={{ width: width }}
+					className={`${color} h-[3px] absolute bottom-[3px] left-[3px]`}
+				></span>{' '}
+				{/* 120px = 100% = 255 points */}
+			</div>
+		</>
+	);
+};

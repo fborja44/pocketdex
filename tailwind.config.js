@@ -28,6 +28,9 @@ export default {
 				200: '2',
 				250: '2.5',
 			},
+			gridTemplateColumns: {
+				stats: '60px 40px 1fr',
+			},
 		},
 	},
 	plugins: [],

@@ -15,7 +15,7 @@ const TypeBackground = ({ type }: TypeBackgroundProps) => {
 			<img
 				src={`/assets/svg/types/${type}.svg`}
 				alt=''
-				className='opacity-50 h-36 w-36 relative top-16 left-2'
+				className='opacity-40 h-36 w-36 relative top-16 left-2'
 			/>
 		</div>
 	);

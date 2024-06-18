@@ -2,9 +2,9 @@ export const TYPE_GRADIENTS: {
 	[key: string]: { from: string; via: string; to: string };
 } = {
 	normal: {
-		from: 'from-zinc-400',
-		via: 'via-zinc-300',
-		to: 'to-zinc-200',
+		from: 'from-stone-400',
+		via: 'via-stone-300',
+		to: 'to-stone-200',
 	},
 	fighting: {
 		from: 'from-rose-600',
@@ -17,9 +17,9 @@ export const TYPE_GRADIENTS: {
 		to: 'to-light-blue-100',
 	},
 	poison: {
-		from: 'from-violet-600',
-		via: 'via-violet-500',
-		to: 'to-violet-400',
+		from: 'from-purple-500',
+		via: 'via-purple-400',
+		to: 'to-purple-300',
 	},
 	ground: {
 		from: 'from-ground-300',
@@ -67,9 +67,9 @@ export const TYPE_GRADIENTS: {
 		to: 'to-amber-200',
 	},
 	psychic: {
-		from: 'from-pink-400',
-		via: 'via-pink-300',
-		to: 'to-pink-200',
+		from: 'from-rose-400',
+		via: 'via-rose-300',
+		to: 'to-rose-200',
 	},
 	ice: {
 		from: 'from-cyan-300',
@@ -87,8 +87,8 @@ export const TYPE_GRADIENTS: {
 		to: 'to-gray-500',
 	},
 	fairy: {
-		from: 'from-fuschia-300',
-		via: 'via-fuschia-200',
-		to: 'to-fuschia-100',
+		from: 'from-fuchsia-300',
+		via: 'via-fuchsia-200',
+		to: 'to-fuchsia-100',
 	},
 };
