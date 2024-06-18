@@ -2,21 +2,19 @@ import Searchbar from '../components/Searchbar/Searchbar';
 import TypeBackground from '../components/TypeBackground/TypeBackground';
 import LeftArrow from '../assets/sprites/ui/left-arrow.png';
 import RightArrow from '../assets/sprites/ui/right-arrow.png';
-import useFetch from '../hooks/useFetch';
 import { formatId } from '../utils/string';
 import TypeLabel from '../components/TypeLabel/TypeLabel';
 import { useState } from 'react';
-import ErrorPage from './ErrorPage';
 import Statbar from '../components/Statbar/Statbar';
+
+import ErrorPage from './ErrorPage';
+import { Type } from '../types';
+import usePokemon from '../hooks/usePokemon';
 
 const Species = () => {
 	const [id, setId] = useState(1);
 
-	const { data, error, fetchData } = useFetch('pokemon');
-
-	// if (loading) {
-	// 	return null;
-	// }
+	const { data, error, fetchData } = usePokemon();
 
 	if (error) {
 		return <ErrorPage message={error.toString()} />;
@@ -28,7 +26,7 @@ const Species = () => {
 
 	return (
 		<div className='flex flex-col relative w-screen h-screen p-2'>
-			<TypeBackground type={data.types[0].type.name} />
+			<TypeBackground type={data.types[0].type.name as Type} />
 			<Searchbar />
 			<div className='flex flex-row items-start'>
 				<button
@@ -36,7 +34,7 @@ const Species = () => {
 					onClick={() => {
 						setId((prevId) => {
 							const newId = prevId - 1;
-							fetchData(newId);
+							fetchData(newId.toString());
 							return newId;
 						});
 					}}
@@ -56,7 +54,7 @@ const Species = () => {
 					onClick={() =>
 						setId((prevId) => {
 							const newId = prevId + 1;
-							fetchData(newId);
+							fetchData(newId.toString());
 							return newId;
 						})
 					}
@@ -68,7 +66,7 @@ const Species = () => {
 				<img
 					src={
 						data.sprites.versions['generation-v']['black-white'].animated
-							.front_default
+							.front_default ?? ''
 					}
 					alt=''
 					className='scale-175'
@@ -128,7 +126,7 @@ const SpeciesStat = ({ statData }: SpeciesStatProps) => {
 	}
 	// Calculate width of stat bar display
 	const width =
-		Math.min(Math.floor(10 + (statData.base_stat / 255) * 120 * 1.1), 120) +
+		Math.min(Math.floor(5 + (statData.base_stat / 255) * 120 * 1.15), 120) +
 		'px';
 
 	let color = '';
