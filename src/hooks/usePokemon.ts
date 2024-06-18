@@ -11,15 +11,17 @@ const usePokemon = (defaultId: string = '1') => {
 	const fetchPokemon = async (id: string) => {
 		setLoading(true);
 		setError(null);
+		let data = null;
 		try {
-			const res = await dex.getPokemonByName(id);
-			setData(res);
+			data = await dex.getPokemonByName(id);
+			setData(data);
 		} catch (err) {
 			if (err instanceof Error) {
 				setError(err.toString());
 			}
 		}
 		setLoading(false);
+		return data;
 	};
 
 	useEffect(() => {

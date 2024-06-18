@@ -18,7 +18,7 @@ const Searchbar = ({ handleSearch, placeholder }: SearchbarProps) => {
 				onChange={(ev) => setSearchTerm(ev.target.value)}
 			/>
 			<button
-				className='absolute top-1/2 -translate-y-1/2 right-3'
+				className='absolute top-1/2 -translate-y-1/2 right-3 hover:brightness-90 transition-all'
 				onClick={() => handleSearch(searchTerm)}
 			>
 				<img src={BallIcon} alt='Search' className='h-2.5 w-2.5' />

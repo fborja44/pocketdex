@@ -17,7 +17,7 @@
 html {
 	border-radius: 10px;
 	width: 250px;
-	height: 420px;
+	height: 490px;
 
 	background-image: url(../assets/img/background.png);
 	object-fit: cover;
@@ -44,4 +44,9 @@ html {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.menubar {
+	background-image: url(../assets/sprites/ui/menubar.png);
+	height: 28px;
 }

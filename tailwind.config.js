@@ -12,6 +12,11 @@ export default {
 				twilight: {
 					DEFAULT: '#6B5A73',
 				},
+				dex: {
+					DEFAULT: '#29C6AD',
+					light: '#48E0CE',
+					dark: '#29736B',
+				},
 				ground: {
 					100: '#E5D192',
 					200: '#D7B770',
@@ -30,6 +35,9 @@ export default {
 			},
 			gridTemplateColumns: {
 				stats: '60px 40px 1fr',
+			},
+			height: {
+				page: `calc(100vh - 28px)`,
 			},
 		},
 	},

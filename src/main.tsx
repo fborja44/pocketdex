@@ -4,6 +4,8 @@ import App from './App.tsx';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/ErrorPage.tsx';
 import SpeciesPage from './pages/SpeciesPage.tsx';
+import HomePage from './pages/HomePage.tsx';
+import SettingsPage from './pages/SettingsPage.tsx';
 
 const router = createHashRouter([
 	{
@@ -13,7 +15,15 @@ const router = createHashRouter([
 		children: [
 			{
 				path: '/',
+				element: <HomePage />,
+			},
+			{
+				path: '/pokemon',
 				element: <SpeciesPage />,
+			},
+			{
+				path: '/settings',
+				element: <SettingsPage />,
 			},
 		],
 	},
