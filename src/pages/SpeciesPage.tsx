@@ -93,7 +93,7 @@ const SpeciesPage = () => {
 						</div>
 						<button>Male</button>
 					</section>
-					<section className='flex flex-row gap-x-2 mt-4 mb-3'>
+					<section className='flex flex-row justify-between mt-4 mb-3'>
 						<Token>bio</Token>
 						<Token>base stats</Token>
 						<Token>evolution</Token>
@@ -146,19 +146,19 @@ const SpeciesStat = ({ statData }: SpeciesStatProps) => {
 	}
 	// Calculate width of stat bar display
 	const width =
-		Math.min(Math.floor((statData.base_stat / 255) * 120 * 1.3), 120) + 'px';
+		Math.min(Math.floor((statData.base_stat / 255) * 150 * 1.2), 150) + 'px';
 
 	let color = '';
-	if (statData.base_stat > 185) {
+	if (statData.base_stat >= 185) {
 		color = 'bg-cyan-500';
-	} else if (statData.base_stat > 119) {
+	} else if (statData.base_stat >= 120) {
 		color = 'bg-green-500';
-	} else if (statData.base_stat > 100) {
+	} else if (statData.base_stat >= 100) {
 		color = 'bg-lime-500';
-	} else if (statData.base_stat > 80) {
-		color = 'bg-orange-500';
-	} else if (statData.base_stat > 50) {
+	} else if (statData.base_stat >= 80) {
 		color = 'bg-yellow-500';
+	} else if (statData.base_stat >= 50) {
+		color = 'bg-orange-500';
 	} else {
 		color = 'bg-red-500';
 	}
@@ -171,9 +171,9 @@ const SpeciesStat = ({ statData }: SpeciesStatProps) => {
 				<Statbar />
 				<span
 					style={{ width: width }}
-					className={`${color} h-[3px] absolute bottom-[3px] left-[3px]`}
+					className={`${color} h-[3px] absolute bottom-[4px] left-[3px]`}
 				></span>{' '}
-				{/* 120px = 100% = 255 points */}
+				{/* 150px = 100% = 255 points */}
 			</div>
 		</>
 	);

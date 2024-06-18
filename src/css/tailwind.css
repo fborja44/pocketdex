@@ -16,8 +16,8 @@
 
 html {
 	border-radius: 10px;
-	width: 250px;
-	height: 490px;
+	width: 280px;
+	height: 530px;
 
 	background-image: url(../assets/img/background.png);
 	object-fit: cover;
@@ -46,7 +46,22 @@ html {
 	align-items: center;
 }
 
+.titlebar {
+	background-image: url(../assets/sprites/ui/titlebar.png);
+	height: 38px;
+}
+
 .menubar {
 	background-image: url(../assets/sprites/ui/menubar.png);
 	height: 28px;
+}
+
+.home-button {
+	background-image: url(../assets/sprites/ui/home-button.png);
+	height: 84px;
+	width: 260px;
+}
+
+.home-button:hover {
+	background-image: url(../assets/sprites/ui/home-button-selected.png);
 }

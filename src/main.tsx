@@ -25,6 +25,22 @@ const router = createHashRouter([
 				path: '/settings',
 				element: <SettingsPage />,
 			},
+			{
+				path: '/ability',
+				element: <ErrorPage />,
+			},
+			{
+				path: '/move',
+				element: <ErrorPage />,
+			},
+			{
+				path: '/item',
+				element: <ErrorPage />,
+			},
+			{
+				path: '/location',
+				element: <ErrorPage />,
+			},
 		],
 	},
 ]);

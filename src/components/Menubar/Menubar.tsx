@@ -8,7 +8,7 @@ const Menubar = () => {
 			<MenuButton to='/'>
 				<img src={HomeIcon} alt='' />
 			</MenuButton>
-			<MenuButton to='/settings'>CFG</MenuButton>
+			<MenuButton to='/settings'>Set</MenuButton>
 		</nav>
 	);
 };
