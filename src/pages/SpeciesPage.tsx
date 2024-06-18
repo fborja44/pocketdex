@@ -55,7 +55,10 @@ const Species = () => {
 				<button>Catch</button>
 				<div className='container-row gap-x-2'>
 					{data.types.map((entry: any) => (
-						<TypeLabel type={entry.type.name} />
+						<TypeLabel
+							type={entry.type.name}
+							key={`${entry.type.name}-label`}
+						/>
 					))}
 				</div>
 				<button>Male</button>

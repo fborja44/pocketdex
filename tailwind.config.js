@@ -12,6 +12,16 @@ export default {
 				twilight: {
 					DEFAULT: '#6B5A73',
 				},
+				ground: {
+					100: '#E5D192',
+					200: '#D7B770',
+					300: '#C8A048',
+				},
+				rock: {
+					200: '#DBB384',
+					300: '#CC9B60',
+					400: '#AE7A3B',
+				},
 			},
 			scale: {
 				175: '1.75',
