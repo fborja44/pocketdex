@@ -4,7 +4,7 @@ import LeftArrow from '../assets/sprites/ui/left-arrow.png';
 import RightArrow from '../assets/sprites/ui/right-arrow.png';
 import { formatId } from '../utils/string';
 import TypeLabel from '../components/TypeLabel/TypeLabel';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Statbar from '../components/Statbar/Statbar';
 import { Type } from '../types';
 import usePokemon from '../hooks/usePokemon';
@@ -12,11 +12,14 @@ import { MAX_POKEMON_ID, MIN_POKEMON_ID } from '../constants';
 import PageLayout from '../components/PageLayout/PageLayout';
 import ErrorPage, { ErrorBody } from './ErrorPage';
 import Token from '../components/Token/Token';
+import SpeciesSprite from '../components/SpeciesSprite/SpeciesSprite';
 
 const SpeciesPage = () => {
 	const [id, setId] = useState<number>(1);
 
 	const { data, error, loading, fetchPokemon } = usePokemon();
+
+	const audioRef = useRef<HTMLAudioElement | null>(null);
 
 	const handleBrowse = (newId: number) => {
 		setId(newId);
@@ -35,6 +38,15 @@ const SpeciesPage = () => {
 	if (!data) {
 		return <ErrorPage message='Fetching data...' />;
 	}
+
+	console.log(data);
+
+	const playCry = () => {
+		if (audioRef?.current) {
+			audioRef.current.volume = 0.05;
+			audioRef.current.play();
+		}
+	};
 
 	return (
 		<PageLayout>
@@ -67,14 +79,7 @@ const SpeciesPage = () => {
 						</button>
 					</section>
 					<div className='flex items-end self-center h-24'>
-						<img
-							src={
-								data.sprites.versions['generation-v']['black-white'].animated
-									.front_default ?? ''
-							}
-							alt=''
-							className='scale-175'
-						/>
+						<SpeciesSprite pokemon={data} handleClick={playCry} />
 					</div>
 					<section className='container-row justify-between w-full mt-9 text-sm z-10'>
 						<button>Catch</button>
@@ -102,6 +107,7 @@ const SpeciesPage = () => {
 							))}
 						</div>
 					</section>
+					<audio ref={audioRef} src={(data as any).cries.latest}></audio>
 				</>
 			) : (
 				<ErrorBody message={'Failed to find species data.'} />
