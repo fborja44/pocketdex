@@ -1,24 +1,22 @@
 import Searchbar from '../components/Searchbar/Searchbar';
 import TypeBackground from '../components/TypeBackground/TypeBackground';
-import LeftArrow from '../assets/sprites/ui/left-arrow.png';
-import RightArrow from '../assets/sprites/ui/right-arrow.png';
-import { formatId } from '../utils/string';
 import TypeLabel from '../components/TypeLabel/TypeLabel';
 import { useRef, useState } from 'react';
 import Statbar from '../components/Statbar/Statbar';
 import { Type } from '../types';
 import usePokemon from '../hooks/usePokemon';
-import { MAX_POKEMON_ID, MIN_POKEMON_ID } from '../constants';
 import PageLayout from '../components/PageLayout/PageLayout';
 import ErrorPage, { ErrorBody } from './ErrorPage';
 import Token from '../components/Token/Token';
 import SpeciesSprite from '../components/SpeciesSprite/SpeciesSprite';
 import Pokeball from '../components/Pokeball/Pokeball';
+import PageHeader from '../components/PageLayout/PageHeader';
+import { MAX_POKEMON_ID, MIN_POKEMON_ID } from '../constants';
 
 const SpeciesPage = () => {
 	const [id, setId] = useState<number>(1);
 
-	const { data, error, loading, fetchPokemon } = usePokemon();
+	const { pokemon, error, loading, fetchPokemon } = usePokemon();
 
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -28,19 +26,21 @@ const SpeciesPage = () => {
 	};
 
 	const handleSearch = async (searchTerm: string | number) => {
-		const data = await fetchPokemon(searchTerm.toString().toLowerCase());
-		setId((prevId) => data?.id ?? prevId);
+		const searchPokemon = await fetchPokemon(
+			searchTerm.toString().toLowerCase()
+		);
+		setId((prevId) => searchPokemon?.id ?? prevId);
 	};
 
 	if (error && loading) {
 		return null;
 	}
 
-	if (!data) {
+	if (!pokemon) {
 		return <ErrorPage message='Fetching data...' />;
 	}
 
-	console.log(data);
+	console.log(pokemon);
 
 	const playCry = () => {
 		if (audioRef?.current) {
@@ -54,38 +54,22 @@ const SpeciesPage = () => {
 			<Searchbar handleSearch={handleSearch} placeholder='Enter a pokemon...' />
 			{!error ? (
 				<>
-					<TypeBackground type={data.types[0].type.name as Type} />
-					<section className='flex flex-row items-start'>
-						<button
-							className='disabled:opacity-50 hover:brightness-90 transition-all'
-							disabled={id === MIN_POKEMON_ID}
-							onClick={() => handleBrowse(data.id - 1)}
-						>
-							<img src={LeftArrow} className='h-5' />
-						</button>
-						<div className='container-col w-full items-start z-20'>
-							<h1 className='text-2xl uppercase text-gray-700 leading-5'>
-								{data.name ?? 'Unknown Species'}
-							</h1>
-							<div className='text-md text-gray-500 leading-snug'>
-								{formatId(data.id)}
-							</div>
-						</div>
-						<button
-							className='disabled:opacity-50 hover:brightness-90 transition-all'
-							disabled={id === MAX_POKEMON_ID}
-							onClick={() => handleBrowse(data.id + 1)}
-						>
-							<img src={RightArrow} className='h-5' />
-						</button>
-					</section>
+					<TypeBackground type={pokemon.types[0].type.name as Type} />
+					<PageHeader
+						id={id}
+						minId={MIN_POKEMON_ID}
+						maxId={MAX_POKEMON_ID}
+						handlePrev={() => handleBrowse(id - 1)}
+						handleNext={() => handleBrowse(id + 1)}
+						data={pokemon}
+					/>
 					<div className='flex items-end self-center h-24'>
-						<SpeciesSprite pokemon={data} handleClick={playCry} />
+						<SpeciesSprite pokemon={pokemon} handleClick={playCry} />
 					</div>
 					<section className='container-row justify-between w-full mt-9 text-sm z-10'>
 						<Pokeball id={id} />
 						<div className='container-row gap-x-2'>
-							{data.types.map((entry) => (
+							{pokemon.types.map((entry) => (
 								<TypeLabel
 									type={entry.type.name as Type}
 									key={`${entry.type.name}-label`}
@@ -103,12 +87,12 @@ const SpeciesPage = () => {
 					<section className='flex flex-col'>
 						<h2 className='text-lg'>Base Stats</h2>
 						<div className='grid grid-cols-stats items-center gap-x-1'>
-							{data.stats.map((statData) => (
+							{pokemon.stats.map((statData) => (
 								<SpeciesStat statData={statData} key={statData.stat.name} />
 							))}
 						</div>
 					</section>
-					<audio ref={audioRef} src={(data as any).cries.latest}></audio>
+					<audio ref={audioRef} src={(pokemon as any).cries.latest}></audio>
 				</>
 			) : (
 				<ErrorBody message={'Failed to find species data.'} />

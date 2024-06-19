@@ -1,20 +1,20 @@
-import { PokemonClient, Pokemon } from 'pokenode-ts';
+import { PokemonClient, Ability } from 'pokenode-ts';
 import { useEffect, useState } from 'react';
 
 const dex = new PokemonClient({ logs: true });
 
-const usePokemon = (defaultId: string = '1') => {
-	const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+const useAbility = (defaultId: string = '1') => {
+	const [ability, setAbility] = useState<Ability | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<Error | string | null>(null);
 
-	const fetchPokemon = async (id: string) => {
+	const fetchAbility = async (id: string) => {
 		setLoading(true);
 		setError(null);
 		let data = null;
 		try {
-			data = await dex.getPokemonByName(id);
-			setPokemon(data);
+			data = await dex.getAbilityByName(id);
+			setAbility(data);
 		} catch (err) {
 			if (err instanceof Error) {
 				setError(err.toString());
@@ -25,10 +25,10 @@ const usePokemon = (defaultId: string = '1') => {
 	};
 
 	useEffect(() => {
-		fetchPokemon(defaultId);
+		fetchAbility(defaultId);
 	}, [defaultId]);
 
-	return { pokemon, loading, error, fetchPokemon };
+	return { ability, loading, error, fetchAbility };
 };
 
-export default usePokemon;
+export default useAbility;

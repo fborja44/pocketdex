@@ -43,6 +43,9 @@ export default {
 				text: 'text-shadow: 2px 0px 0px #000',
 				menu: 'text-shadow: 2px 0px 0px #9C9C9C',
 			},
+			brightness: {
+				25: '.25',
+			},
 		},
 	},
 	plugins: [],
