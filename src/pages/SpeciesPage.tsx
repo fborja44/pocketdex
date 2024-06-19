@@ -66,7 +66,7 @@ const SpeciesPage = () => {
 					<div className='flex items-end self-center h-24'>
 						<SpeciesSprite pokemon={pokemon} handleClick={playCry} />
 					</div>
-					<section className='container-row justify-between w-full mt-9 text-sm z-10'>
+					<section className='container-row justify-between mt-9 text-sm z-10 w-11/12 mx-auto'>
 						<Pokeball id={id} />
 						<div className='container-row gap-x-2'>
 							{pokemon.types.map((entry) => (

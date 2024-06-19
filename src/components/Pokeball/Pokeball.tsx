@@ -29,8 +29,8 @@ const Pokeball = ({ id }: PokeballProps) => {
 				alt={isCaught ? 'Release' : 'Catch'}
 				className={`w-5 h-5 ${
 					isCaught
-						? 'hover:brightness-25'
-						: 'brightness-25 hover:brightness-100'
+						? 'hover:brightness-50'
+						: 'brightness-50 hover:brightness-100'
 				}`}
 			/>
 		</button>

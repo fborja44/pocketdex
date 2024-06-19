@@ -65,3 +65,20 @@ html {
 .home-button:hover {
 	background-image: url(../assets/sprites/ui/home-button-selected.png);
 }
+
+.label-l {
+	background-image: url(../assets/sprites/ui/label-l.png);
+	height: 30px;
+	width: 7px;
+}
+
+.label-m {
+	background-image: url(../assets/sprites/ui/label-m.png);
+	height: 30px;
+}
+
+.label-r {
+	background-image: url(../assets/sprites/ui/label-r.png);
+	height: 30px;
+	width: 7px;
+}

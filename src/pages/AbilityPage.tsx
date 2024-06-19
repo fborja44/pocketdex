@@ -6,6 +6,9 @@ import Searchbar from '../components/Searchbar/Searchbar';
 import { MAX_ABILITY_ID, MIN_ABILITY_ID } from '../constants';
 import PageHeader from '../components/PageLayout/PageHeader';
 import { parseAbilityEffects } from '../utils/string';
+import Label from '../components/Label/Label';
+import PokeballOutline from '../assets/sprites/outlined/pokeball.png';
+import TreeOutline from '../assets/sprites/outlined/tree.png';
 
 const AbilityPage = () => {
 	const [id, setId] = useState<number>(1);
@@ -57,20 +60,14 @@ const AbilityPage = () => {
 				name={name}
 			/>
 			{!error ? (
-				<section className='container-col gap-y-4'>
-					<div className='flex flex-col gap-y-2 w-full'>
-						<h2 className='uppercase'>Battle Effect</h2>
-						<p className='text-sm leading-tight text-stone-600'>
-							{battle.length ? battle : 'No Battle Effect.'}
-						</p>
-					</div>
-					<div className='flex flex-col gap-y-2 w-full'>
-						<h2 className='uppercase'>Overworld Effect</h2>
-						<p className='text-sm leading-tight text-stone-600'>
-							{overworld.length ? overworld : 'No Overworld Effect.'}
-						</p>
-					</div>
-				</section>
+				<div className='container-col gap-y-5 py-6'>
+					<Section iconSrc={PokeballOutline} label='Battle Effect'>
+						{battle.length ? battle : 'No Battle Effect.'}
+					</Section>
+					<Section iconSrc={TreeOutline} label='Overworld Effect'>
+						{overworld.length ? overworld : 'No Overworld Effect.'}
+					</Section>
+				</div>
 			) : (
 				<ErrorBody message={'Failed to find ability data.'} />
 			)}
@@ -79,3 +76,18 @@ const AbilityPage = () => {
 };
 
 export default AbilityPage;
+
+interface SectionProps {
+	label: string;
+	iconSrc?: string;
+	children: React.ReactNode;
+}
+
+export const Section = ({ label, iconSrc, children }: SectionProps) => {
+	return (
+		<section className='flex flex-col gap-y-2 w-full'>
+			<Label iconSrc={iconSrc}>{label}</Label>
+			<p className='text-sm leading-tight text-stone-600'>{children}</p>
+		</section>
+	);
+};
