@@ -13,6 +13,7 @@ import PageLayout from '../components/PageLayout/PageLayout';
 import ErrorPage, { ErrorBody } from './ErrorPage';
 import Token from '../components/Token/Token';
 import SpeciesSprite from '../components/SpeciesSprite/SpeciesSprite';
+import Pokeball from '../components/Pokeball/Pokeball';
 
 const SpeciesPage = () => {
 	const [id, setId] = useState<number>(1);
@@ -50,7 +51,7 @@ const SpeciesPage = () => {
 
 	return (
 		<PageLayout>
-			<Searchbar handleSearch={handleSearch} placeholder='Enter a pokemon' />
+			<Searchbar handleSearch={handleSearch} placeholder='Enter a pokemon...' />
 			{!error ? (
 				<>
 					<TypeBackground type={data.types[0].type.name as Type} />
@@ -82,7 +83,7 @@ const SpeciesPage = () => {
 						<SpeciesSprite pokemon={data} handleClick={playCry} />
 					</div>
 					<section className='container-row justify-between w-full mt-9 text-sm z-10'>
-						<button>Catch</button>
+						<Pokeball id={id} />
 						<div className='container-row gap-x-2'>
 							{data.types.map((entry) => (
 								<TypeLabel

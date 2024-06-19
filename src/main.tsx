@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
+import { Provider as ReduxProvider } from 'react-redux';
 import ErrorPage from './pages/ErrorPage.tsx';
 import SpeciesPage from './pages/SpeciesPage.tsx';
 import HomePage from './pages/HomePage.tsx';
 import SettingsPage from './pages/SettingsPage.tsx';
+import store, { persistor } from './redux/store.ts';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const router = createHashRouter([
 	{
@@ -47,6 +50,10 @@ const router = createHashRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<ReduxProvider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<RouterProvider router={router} />
+			</PersistGate>
+		</ReduxProvider>
 	</React.StrictMode>
 );

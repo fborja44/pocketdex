@@ -4,7 +4,7 @@ import Dex from '../assets/sprites/ui/home/dex.png';
 import Ability from '../assets/sprites/ui/home/ability-charm.png';
 import Pouch from '../assets/sprites/ui/home/berry-pouch.png';
 import Case from '../assets/sprites/ui/home/tm-case.png';
-import Map from '../assets/sprites/ui/home/town-map.png';
+import Pokeball from '../assets/sprites/ui/home/pokeball.png';
 
 const HomePage = () => {
 	return (
@@ -20,10 +20,10 @@ const HomePage = () => {
 					Moves & TMs
 				</HomeButton>
 				<HomeButton to='/item' imgSrc={Pouch}>
-					Item
+					Items
 				</HomeButton>
-				<HomeButton to='/location' imgSrc={Map}>
-					Locations
+				<HomeButton to='/location' imgSrc={Pokeball}>
+					My PC
 				</HomeButton>
 			</section>
 		</PageLayout>

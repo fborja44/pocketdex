@@ -14,7 +14,7 @@ const TitlebarLink = ({ children, to, external }: TitlebarLinkProps) => {
 			target={external ? '_blank' : ''}
 			className='container-row gap-x-1.5 text-stone-300 hover:text-dex-light transition-colors'
 		>
-			<span className='relative bottom-[2px]'>▪</span>
+			<span className='relative bottom-[1px]'>▪</span>
 			<div>{children}</div>
 		</Link>
 	);
