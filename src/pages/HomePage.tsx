@@ -9,7 +9,7 @@ import Pokeball from '../assets/sprites/ui/home/pokeball.png';
 const HomePage = () => {
 	return (
 		<PageLayout>
-			<section className='container-col h-full justify-between py-0.5'>
+			<section className='container-col h-full justify-between py-2.5'>
 				<HomeButton to='/pokemon' imgSrc={Dex}>
 					Pokédex
 				</HomeButton>

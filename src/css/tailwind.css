@@ -82,3 +82,9 @@ html {
 	height: 30px;
 	width: 7px;
 }
+
+.device-bg {
+	background-image: url(../assets/sprites/ui/bg.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}

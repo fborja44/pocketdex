@@ -2,9 +2,8 @@ import { useState } from 'react';
 import PageLayout from '../components/PageLayout/PageLayout';
 import useAbility from '../hooks/useAbility';
 import ErrorPage, { ErrorBody } from './ErrorPage';
-import Searchbar from '../components/Searchbar/Searchbar';
 import { MAX_ABILITY_ID, MIN_ABILITY_ID } from '../constants';
-import PageHeader from '../components/PageLayout/PageHeader';
+import { PageHeaderDevice } from '../components/PageLayout/PageHeader';
 import { parseAbilityEffects } from '../utils/string';
 import Label from '../components/Label/Label';
 import PokeballOutline from '../assets/sprites/outlined/pokeball.png';
@@ -46,11 +45,7 @@ const AbilityPage = () => {
 
 	return (
 		<PageLayout>
-			<Searchbar
-				handleSearch={handleSearch}
-				placeholder='Enter an ability...'
-			/>
-			<PageHeader
+			<PageHeaderDevice
 				id={id}
 				minId={MIN_ABILITY_ID}
 				maxId={MAX_ABILITY_ID}
@@ -58,9 +53,10 @@ const AbilityPage = () => {
 				handleNext={() => handleBrowse(id + 1)}
 				data={ability}
 				name={name}
+				handleSearch={handleSearch}
 			/>
 			{!error ? (
-				<div className='container-col gap-y-5 py-6'>
+				<div className='p-2 container-col gap-y-5'>
 					<Section iconSrc={PokeballOutline} label='Battle Effect'>
 						{battle.length ? battle : 'No Battle Effect.'}
 					</Section>

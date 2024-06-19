@@ -23,7 +23,7 @@ const TitlebarLink = ({ children, to, external }: TitlebarLinkProps) => {
 const Titlebar = () => {
 	return (
 		<header className='titlebar flex flex-row pr-2 uppercase text-white'>
-			<img src={Logo} alt='' className='h-[30px]' />
+			<img src={Logo} alt='' className='h-[26px]' />
 			<div className='container-row justify-between h-[28px] w-full pl-2'>
 				<Link
 					to='/'

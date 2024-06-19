@@ -51,47 +51,54 @@ const SpeciesPage = () => {
 
 	return (
 		<PageLayout>
-			<Searchbar handleSearch={handleSearch} placeholder='Enter a pokemon...' />
 			{!error ? (
 				<>
 					<TypeBackground type={pokemon.types[0].type.name as Type} />
-					<PageHeader
-						id={id}
-						minId={MIN_POKEMON_ID}
-						maxId={MAX_POKEMON_ID}
-						handlePrev={() => handleBrowse(id - 1)}
-						handleNext={() => handleBrowse(id + 1)}
-						data={pokemon}
-					/>
+					<div className='px-2 pt-2'>
+						<Searchbar
+							handleSearch={handleSearch}
+							placeholder='Enter a pokemon...'
+						/>
+						<PageHeader
+							id={id}
+							minId={MIN_POKEMON_ID}
+							maxId={MAX_POKEMON_ID}
+							handlePrev={() => handleBrowse(id - 1)}
+							handleNext={() => handleBrowse(id + 1)}
+							data={pokemon}
+						/>
+					</div>
 					<div className='flex items-end self-center h-24'>
 						<SpeciesSprite pokemon={pokemon} handleClick={playCry} />
 					</div>
-					<section className='container-row justify-between mt-9 text-sm z-10 w-11/12 mx-auto'>
-						<Pokeball id={id} />
-						<div className='container-row gap-x-2'>
-							{pokemon.types.map((entry) => (
-								<TypeLabel
-									type={entry.type.name as Type}
-									key={`${entry.type.name}-label`}
-								/>
-							))}
-						</div>
-						<button>Male</button>
-					</section>
-					<section className='flex flex-row justify-between mt-4 mb-3'>
-						<Token>bio</Token>
-						<Token>base stats</Token>
-						<Token>evolution</Token>
-						<Token>movelist</Token>
-					</section>
-					<section className='flex flex-col'>
-						<h2 className='text-lg'>Base Stats</h2>
-						<div className='grid grid-cols-stats items-center gap-x-1'>
-							{pokemon.stats.map((statData) => (
-								<SpeciesStat statData={statData} key={statData.stat.name} />
-							))}
-						</div>
-					</section>
+					<div className='px-2'>
+						<section className='container-row justify-between mt-9 text-sm z-10 w-11/12 mx-auto'>
+							<Pokeball id={id} />
+							<div className='container-row gap-x-2'>
+								{pokemon.types.map((entry) => (
+									<TypeLabel
+										type={entry.type.name as Type}
+										key={`${entry.type.name}-label`}
+									/>
+								))}
+							</div>
+							<button>Male</button>
+						</section>
+						<section className='flex flex-row justify-between mt-4 mb-3'>
+							<Token>bio</Token>
+							<Token>base stats</Token>
+							<Token>evolution</Token>
+							<Token>movelist</Token>
+						</section>
+						<section className='flex flex-col'>
+							<h2 className='text-lg'>Base Stats</h2>
+							<div className='grid grid-cols-stats items-center gap-x-1'>
+								{pokemon.stats.map((statData) => (
+									<SpeciesStat statData={statData} key={statData.stat.name} />
+								))}
+							</div>
+						</section>
+					</div>
 					<audio ref={audioRef} src={(pokemon as any).cries.latest}></audio>
 				</>
 			) : (
