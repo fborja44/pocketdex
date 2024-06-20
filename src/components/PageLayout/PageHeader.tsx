@@ -74,9 +74,10 @@ export const PageHeaderDevice = ({
 					/>
 					<div className='container-col w-full items-start z-20'>
 						<h1 className='relative container-row text-2xl uppercase text-white leading-5'>
+							<span className='text-base text-stone-400 mr-3'>#{data.id}:</span>
 							<span>{name ?? data.name ?? 'Unknown'}</span>
 							{iconSrc && (
-								<img src={iconSrc} className='right-0 w-8 h-8 ml-2' alt='' />
+								<img src={iconSrc} className='right-0 w-8 h-8 ml-1' alt='' />
 							)}
 						</h1>
 					</div>

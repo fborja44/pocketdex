@@ -23,3 +23,5 @@ export type Type =
 	| 'fairy'
 	| 'stellar'
 	| 'unknown';
+
+export type MoveCategory = 'physical' | 'special' | 'status';

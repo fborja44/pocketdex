@@ -8,6 +8,7 @@ import PhysicalOutline from '../assets/sprites/outlined/physical.png';
 import MoneyOutline from '../assets/sprites/outlined/coin.png';
 import { Section } from '../components/Section/Section';
 import useItem from '../hooks/useItem';
+import DataGrid, { DataGridEntry } from '../components/DataGrid/DataGrid';
 
 const ItemPage = () => {
 	const [id, setId] = useState<number>(1);
@@ -59,31 +60,29 @@ const ItemPage = () => {
 						}
 					</Section>
 					<Section iconSrc={MoneyOutline} label='Price'>
-						<div className='grid grid-cols-2 gap-y-1'>
-							<span className=''>Purchase Price:</span>
-							<span>{item.cost ? '$' + item.cost : 'Not purchasable.'}</span>
-							<span>Sell Price:</span>
-							<span>
-								{item.category.name !== 'gameplay' ? '$' + item.cost / 2 : ''}
-							</span>
-						</div>
+						<DataGrid>
+							<DataGridEntry label='Purchase Price:'>
+								{item.cost ? '$ ' + item.cost : 'Not purchasable.'}
+							</DataGridEntry>
+							<DataGridEntry label='Sell Price:'>
+								{item.category.name !== 'gameplay' ? '$ ' + item.cost / 2 : ''}
+							</DataGridEntry>
+						</DataGrid>
 					</Section>
 					{(item.fling_power !== null || item.fling_effect !== null) && (
 						<Section iconSrc={PhysicalOutline} label='Thrown With Fling'>
-							<div className='grid grid-cols-2 gap-y-1'>
+							<DataGrid>
 								{item.fling_power !== null && (
-									<>
-										<span>Power: </span>
-										<span>{item.fling_power}</span>
-									</>
+									<DataGridEntry label='Power:'>
+										{item.fling_power}
+									</DataGridEntry>
 								)}
 								{item.fling_effect !== null && (
-									<>
-										<span>Effect: </span>
-										<span>{item.fling_effect.name}</span>
-									</>
+									<DataGridEntry label='Effect:'>
+										{item.fling_effect.name}
+									</DataGridEntry>
 								)}
-							</div>
+							</DataGrid>
 						</Section>
 					)}
 				</div>
