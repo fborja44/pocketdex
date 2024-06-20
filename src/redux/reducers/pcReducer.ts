@@ -1,8 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { catchPokemon, releasePokemon } from '../actions/pcActions';
+import { SavedPokemon } from '../../types';
 
 export interface PCState {
-	pokemon: number[];
+	pokemon: SavedPokemon[];
 	abilities: number[];
 	moves: number[];
 	items: number[];
@@ -18,10 +19,15 @@ export const initialState: PCState = {
 const pcActions = createReducer(initialState, (builder) => {
 	builder
 		.addCase(catchPokemon, (state, action) => {
-			state.pokemon.push(action.payload.id);
+			const id = action.payload.id;
+			if (!state.pokemon.find((pokemon) => pokemon.id === id)) {
+				state.pokemon.push(action.payload);
+			}
 		})
 		.addCase(releasePokemon, (state, action) => {
-			state.pokemon = state.pokemon.filter((id) => id !== action.payload.id);
+			state.pokemon = state.pokemon.filter(
+				(pokemon) => pokemon.id !== action.payload.id
+			);
 		});
 });
 

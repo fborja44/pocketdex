@@ -63,6 +63,14 @@ interface DeviceHeaderProps extends PageHeaderProps {
 	data: Exclude<EntryData, Pokemon> | null;
 }
 
+interface PageHeaderLayoutProps {
+	children: React.ReactNode;
+}
+
+export const PageHeaderLayout = ({ children }: PageHeaderLayoutProps) => {
+	return <section className='relative -top-[8px] '>{children}</section>;
+};
+
 export const PageHeaderDevice = ({
 	id,
 	minId,
@@ -78,44 +86,72 @@ export const PageHeaderDevice = ({
 	name = data?.names.find((entry: any) => entry.language.name === 'en')?.name;
 
 	return (
-		<section className='relative -top-[8px] '>
+		<PageHeaderLayout>
 			<SearchbarDevice handleSearch={handleSearch} placeholder={placeholder} />
-			<div className='container-row device-bg w-full h-[45px] border-b-2 border-dex box-content relative'>
-				<div className='flex flex-row items-center w-full px-2 '>
+			<DeviceBar
+				id={id}
+				minId={minId}
+				maxId={maxId}
+				data={data}
+				name={name}
+				iconSrc={iconSrc}
+				handlePrev={handlePrev}
+				handleNext={handleNext}
+			/>
+		</PageHeaderLayout>
+	);
+};
+
+interface DeviceBarProps extends PageHeaderProps {
+	simple?: boolean;
+}
+
+export const DeviceBar = ({
+	simple,
+	id,
+	minId,
+	maxId,
+	data,
+	name,
+	iconSrc,
+	handlePrev,
+	handleNext,
+}: DeviceBarProps) => {
+	return (
+		<div className='container-row device-bg w-full h-[45px] border-b-2 border-dex box-content relative'>
+			<div className='flex flex-row items-center w-full px-2 '>
+				{!simple && (
 					<BrowseButton
 						disabled={id === minId}
 						handleClick={handlePrev}
 						src={LeftArrow}
 					/>
-
-					<div className='container-col w-full items-start z-20'>
-						{data && (
-							<>
-								<h1 className='relative container-row text-2xl uppercase text-white leading-5'>
-									<span className='text-base text-stone-400 mr-3'>
-										#{data.id}:
-									</span>
-									<span>{name ?? data.name ?? 'Unknown'}</span>
-									{iconSrc && (
-										<img
-											src={iconSrc}
-											className='right-0 w-8 h-8 ml-1'
-											alt=''
-										/>
-									)}
-								</h1>
-							</>
-						)}
-					</div>
+				)}
+				<div className='container-col w-full items-start z-20'>
+					<>
+						<h1 className='relative container-row text-2xl uppercase text-white leading-5'>
+							{!simple && data && (
+								<span className='text-base text-stone-400 mr-2'>
+									{formatId(data.id)}:
+								</span>
+							)}
+							<span>{name ?? data?.name ?? 'Loading'}</span>
+							{iconSrc && (
+								<img src={iconSrc} className='right-0 w-8 h-8 ml-1' alt='' />
+							)}
+						</h1>
+					</>
+				</div>
+				{!simple && (
 					<BrowseButton
 						disabled={id === maxId}
 						handleClick={handleNext}
 						src={RightArrow}
 					/>
-				</div>
-				<span className='bg-device-200 h-[2px] w-full absolute -bottom-[4px]'></span>
+				)}
 			</div>
-		</section>
+			<span className='bg-device-200 h-[2px] w-full absolute -bottom-[4px]' />
+		</div>
 	);
 };
 

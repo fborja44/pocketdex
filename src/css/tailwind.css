@@ -88,3 +88,10 @@ html {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
+
+.pc-sprite {
+	object-position: 0px -10px;
+	width: 50px;
+	position: absolute;
+	left: -10px;
+}

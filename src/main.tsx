@@ -12,6 +12,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import AbilityPage from './pages/AbilityPage.tsx';
 import ItemPage from './pages/ItemPage.tsx';
 import MovePage from './pages/MovePage.tsx';
+import PCPage from './pages/PCPage.tsx';
 
 const router = createHashRouter([
 	{
@@ -45,7 +46,7 @@ const router = createHashRouter([
 			},
 			{
 				path: '/location',
-				element: <ErrorPage>Under Construction</ErrorPage>,
+				element: <PCPage />,
 			},
 		],
 	},

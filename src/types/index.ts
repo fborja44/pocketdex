@@ -25,3 +25,9 @@ export type Type =
 	| 'unknown';
 
 export type MoveCategory = 'physical' | 'special' | 'status';
+
+export interface SavedPokemon {
+	id: number;
+	name: string;
+	sprite: string | undefined;
+}

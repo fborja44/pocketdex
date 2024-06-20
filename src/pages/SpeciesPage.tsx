@@ -74,7 +74,7 @@ const SpeciesPage = () => {
 					</div>
 					<div className='px-2'>
 						<section className='container-row justify-between mt-9 text-sm z-10 w-11/12 mx-auto'>
-							<Pokeball id={id} />
+							<Pokeball pokemon={pokemon} />
 							<div className='container-row gap-x-2'>
 								{pokemon.types.map((entry) => (
 									<TypeLabel
