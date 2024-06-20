@@ -10,7 +10,7 @@ export const Section = ({ label, iconSrc, children }: SectionProps) => {
 	return (
 		<section className='flex flex-col gap-y-2 w-full'>
 			<Label iconSrc={iconSrc}>{label}</Label>
-			<p className='text-sm leading-tight text-stone-600'>{children}</p>
+			<div className='text-sm leading-tight text-stone-600'>{children}</div>
 		</section>
 	);
 };

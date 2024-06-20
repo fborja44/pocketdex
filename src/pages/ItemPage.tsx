@@ -6,7 +6,7 @@ import { PageHeaderDevice } from '../components/PageLayout/PageHeader';
 import BookOutline from '../assets/sprites/outlined/book.png';
 import PhysicalOutline from '../assets/sprites/outlined/physical.png';
 import MoneyOutline from '../assets/sprites/outlined/coin.png';
-import { Section } from './AbilityPage';
+import { Section } from '../components/Section/Section';
 import useItem from '../hooks/useItem';
 
 const ItemPage = () => {

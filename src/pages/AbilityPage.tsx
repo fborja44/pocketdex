@@ -5,9 +5,9 @@ import ErrorPage, { ErrorBody } from './ErrorPage';
 import { MAX_ABILITY_ID, MIN_ABILITY_ID } from '../constants';
 import { PageHeaderDevice } from '../components/PageLayout/PageHeader';
 import { parseAbilityEffects } from '../utils/string';
-import Label from '../components/Label/Label';
 import PokeballOutline from '../assets/sprites/outlined/pokeball.png';
 import TreeOutline from '../assets/sprites/outlined/tree.png';
+import { Section } from '../components/Section/Section';
 
 const AbilityPage = () => {
 	const [id, setId] = useState<number>(1);
@@ -73,18 +73,3 @@ const AbilityPage = () => {
 };
 
 export default AbilityPage;
-
-interface SectionProps {
-	label: string;
-	iconSrc?: string;
-	children: React.ReactNode;
-}
-
-export const Section = ({ label, iconSrc, children }: SectionProps) => {
-	return (
-		<section className='flex flex-col gap-y-2 w-full'>
-			<Label iconSrc={iconSrc}>{label}</Label>
-			<p className='text-sm leading-tight text-stone-600'>{children}</p>
-		</section>
-	);
-};
