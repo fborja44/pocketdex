@@ -10,6 +10,7 @@ interface PageHeaderProps {
 	maxId: string | number;
 	data: Pokemon | Ability | Move | Item;
 	name?: string;
+	iconSrc?: string;
 	handlePrev: () => void;
 	handleNext: () => void;
 }
@@ -55,26 +56,28 @@ export const PageHeaderDevice = ({
 	maxId,
 	data,
 	name,
+	iconSrc,
 	handlePrev,
 	handleNext,
 	handleSearch,
+	placeholder,
 }: PageHeaderProps & SearchbarProps) => {
 	return (
 		<section className='relative -top-[8px] '>
-			<SearchbarDevice
-				handleSearch={handleSearch}
-				placeholder='Enter an ability...'
-			/>
+			<SearchbarDevice handleSearch={handleSearch} placeholder={placeholder} />
 			<div className='container-row device-bg w-full h-[45px] border-b-2 border-dex box-content relative'>
-				<div className='flex flex-row items-start w-full px-2 '>
+				<div className='flex flex-row items-center w-full px-2 '>
 					<BrowseButton
 						disabled={id === minId}
 						handleClick={handlePrev}
 						src={LeftArrow}
 					/>
 					<div className='container-col w-full items-start z-20'>
-						<h1 className='text-2xl uppercase text-white leading-5'>
-							{name ?? data.name ?? 'Unknown'}
+						<h1 className='relative container-row text-2xl uppercase text-white leading-5'>
+							<span>{name ?? data.name ?? 'Unknown'}</span>
+							{iconSrc && (
+								<img src={iconSrc} className='right-0 w-8 h-8 ml-2' alt='' />
+							)}
 						</h1>
 					</div>
 					<BrowseButton

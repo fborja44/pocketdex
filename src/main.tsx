@@ -10,6 +10,7 @@ import SettingsPage from './pages/SettingsPage.tsx';
 import store, { persistor } from './redux/store.ts';
 import { PersistGate } from 'redux-persist/integration/react';
 import AbilityPage from './pages/AbilityPage.tsx';
+import ItemPage from './pages/ItemPage.tsx';
 
 const router = createHashRouter([
 	{
@@ -39,7 +40,7 @@ const router = createHashRouter([
 			},
 			{
 				path: '/item',
-				element: <ErrorPage />,
+				element: <ItemPage />,
 			},
 			{
 				path: '/location',

@@ -54,6 +54,7 @@ const AbilityPage = () => {
 				data={ability}
 				name={name}
 				handleSearch={handleSearch}
+				placeholder='Enter an ability...'
 			/>
 			{!error ? (
 				<div className='p-2 container-col gap-y-5'>
