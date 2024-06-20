@@ -45,7 +45,7 @@ const router = createHashRouter([
 			},
 			{
 				path: '/location',
-				element: <ErrorPage />,
+				element: <ErrorPage>Under Construction</ErrorPage>,
 			},
 		],
 	},

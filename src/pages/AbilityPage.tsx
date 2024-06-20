@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import PageLayout from '../components/PageLayout/PageLayout';
 import useAbility from '../hooks/useAbility';
-import ErrorPage, { ErrorBody } from './ErrorPage';
+import { ErrorBody } from './ErrorPage';
 import { MAX_ABILITY_ID, MIN_ABILITY_ID } from '../constants';
 import { PageHeaderDevice } from '../components/PageLayout/PageHeader';
 import { parseAbilityEffects } from '../utils/string';
 import PokeballOutline from '../assets/sprites/outlined/pokeball.png';
 import TreeOutline from '../assets/sprites/outlined/tree.png';
 import { Section } from '../components/Section/Section';
+import LoadingPage from './LoadingPage';
+import { Ability } from 'pokenode-ts';
 
 const AbilityPage = () => {
 	const [id, setId] = useState<number>(1);
@@ -28,20 +30,13 @@ const AbilityPage = () => {
 		return null;
 	}
 
-	if (!ability) {
-		return <ErrorPage message='Fetching data...' />;
-	}
-
-	console.log(ability);
-
-	const [battle, overworld] = parseAbilityEffects(
-		ability.effect_entries.find((effect) => effect.language.name === 'en')
-			?.effect
+	const content = ability ? (
+		<AbilityPageContent ability={ability} />
+	) : (
+		<LoadingPage />
 	);
 
-	const name = ability.names.find(
-		(entry) => entry.language.name === 'en'
-	)?.name;
+	console.log(ability);
 
 	return (
 		<PageLayout>
@@ -52,24 +47,34 @@ const AbilityPage = () => {
 				handlePrev={() => handleBrowse(id - 1)}
 				handleNext={() => handleBrowse(id + 1)}
 				data={ability}
-				name={name}
 				handleSearch={handleSearch}
 				placeholder='Enter an ability...'
 			/>
-			{!error ? (
-				<div className='p-2 container-col gap-y-5'>
-					<Section iconSrc={PokeballOutline} label='Battle Effect'>
-						{battle.length ? battle : 'No Battle Effect.'}
-					</Section>
-					<Section iconSrc={TreeOutline} label='Overworld Effect'>
-						{overworld.length ? overworld : 'No Overworld Effect.'}
-					</Section>
-				</div>
-			) : (
-				<ErrorBody message={'Failed to find ability data.'} />
-			)}
+			{!error ? content : <ErrorBody>Failed to find ability data.</ErrorBody>}
 		</PageLayout>
 	);
 };
 
 export default AbilityPage;
+
+interface AbilityPageContent {
+	ability: Ability;
+}
+
+const AbilityPageContent = ({ ability }: AbilityPageContent) => {
+	const [battle, overworld] = parseAbilityEffects(
+		ability.effect_entries.find((effect) => effect.language.name === 'en')
+			?.effect
+	);
+
+	return (
+		<div className='p-2 container-col gap-y-5'>
+			<Section iconSrc={PokeballOutline} label='Battle Effect'>
+				{battle.length ? battle : 'No Battle Effect.'}
+			</Section>
+			<Section iconSrc={TreeOutline} label='Overworld Effect'>
+				{overworld.length ? overworld : 'No Overworld Effect.'}
+			</Section>
+		</div>
+	);
+};

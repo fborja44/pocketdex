@@ -1,22 +1,22 @@
 import PageLayout from '../components/PageLayout/PageLayout';
 
 interface ErrorPageProps {
-	message?: string;
+	children?: React.ReactNode;
 }
 
-export const ErrorBody = ({ message }: ErrorPageProps) => {
+export const ErrorBody = ({ children }: ErrorPageProps) => {
 	return (
 		<div className='flex flex-col items-center justify-center h-3/4'>
 			<h1>Oops!</h1>
-			<div className='text-center'>{message ?? 'Something went wrong.'}</div>
+			<div className='text-center'>{children ?? 'Something went wrong.'}</div>
 		</div>
 	);
 };
 
-const ErrorPage = ({ message }: ErrorPageProps) => {
+const ErrorPage = ({ children }: ErrorPageProps) => {
 	return (
 		<PageLayout>
-			<ErrorBody message={message} />
+			<ErrorBody>{children}</ErrorBody>
 		</PageLayout>
 	);
 };

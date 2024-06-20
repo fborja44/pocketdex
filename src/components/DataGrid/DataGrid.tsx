@@ -1,15 +1,10 @@
 interface DataGridProps {
-	gapX?: string;
 	children: React.ReactNode;
 }
 
-const DataGrid = ({ gapX, children }: DataGridProps) => {
-	gapX = gapX ? `gap-x-${gapX}` : '';
-
+const DataGrid = ({ children }: DataGridProps) => {
 	return (
-		<div className={`grid grid-cols-2 gap-y-1 ${gapX} items-center`}>
-			{children}
-		</div>
+		<div className='grid grid-cols-2 gap-y-1 items-center'>{children}</div>
 	);
 };
 

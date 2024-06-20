@@ -5,7 +5,7 @@ import Titlebar from './components/Titlebar/Titlebar';
 
 function App() {
 	return (
-		<main className='overflow-hidden'>
+		<main className='overflow-hidden flex flex-col h-screen'>
 			<Titlebar />
 			<Outlet />
 			<Menubar />

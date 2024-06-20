@@ -6,12 +6,13 @@ import Statbar from '../components/Statbar/Statbar';
 import { Type } from '../types';
 import usePokemon from '../hooks/usePokemon';
 import PageLayout from '../components/PageLayout/PageLayout';
-import ErrorPage, { ErrorBody } from './ErrorPage';
+import { ErrorBody } from './ErrorPage';
 import Token from '../components/Token/Token';
 import SpeciesSprite from '../components/SpeciesSprite/SpeciesSprite';
 import Pokeball from '../components/Pokeball/Pokeball';
 import PageHeader from '../components/PageLayout/PageHeader';
 import { MAX_POKEMON_ID, MIN_POKEMON_ID } from '../constants';
+import LoadingPage from './LoadingPage';
 
 const SpeciesPage = () => {
 	const [id, setId] = useState<number>(1);
@@ -37,7 +38,7 @@ const SpeciesPage = () => {
 	}
 
 	if (!pokemon) {
-		return <ErrorPage message='Fetching data...' />;
+		return <LoadingPage />;
 	}
 
 	console.log(pokemon);
@@ -102,7 +103,7 @@ const SpeciesPage = () => {
 					<audio ref={audioRef} src={(pokemon as any).cries.latest}></audio>
 				</>
 			) : (
-				<ErrorBody message={'Failed to find species data.'} />
+				<ErrorBody>Failed to find species data.</ErrorBody>
 			)}
 		</PageLayout>
 	);

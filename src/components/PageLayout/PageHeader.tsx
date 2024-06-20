@@ -1,18 +1,23 @@
-import { Ability, Item, Move, Pokemon } from 'pokenode-ts';
 import { formatId } from '../../utils/string';
 import LeftArrow from '../../assets/sprites/ui/left-arrow.png';
 import RightArrow from '../../assets/sprites/ui/right-arrow.png';
 import { SearchbarDevice, SearchbarProps } from '../Searchbar/Searchbar';
+import { EntryData } from '../../types';
+import { Pokemon } from 'pokenode-ts';
 
 interface PageHeaderProps {
 	id: string | number;
-	minId: string | number;
-	maxId: string | number;
-	data: Pokemon | Ability | Move | Item;
+	minId?: string | number;
+	maxId?: string | number;
+	data: EntryData | null;
 	name?: string;
 	iconSrc?: string;
-	handlePrev: () => void;
-	handleNext: () => void;
+	handlePrev?: () => void;
+	handleNext?: () => void;
+}
+
+interface SpeciesHeaderProps extends PageHeaderProps {
+	data: Pokemon;
 }
 
 const PageHeader = ({
@@ -23,7 +28,7 @@ const PageHeader = ({
 	name,
 	handlePrev,
 	handleNext,
-}: PageHeaderProps) => {
+}: SpeciesHeaderProps) => {
 	return (
 		<section className='flex flex-row items-start'>
 			<BrowseButton
@@ -32,12 +37,16 @@ const PageHeader = ({
 				src={LeftArrow}
 			/>
 			<div className='container-col w-full items-start z-20'>
-				<h1 className='text-2xl uppercase text-gray-700 leading-5'>
-					{name ?? data.name ?? 'Unknown'}
-				</h1>
-				<div className='text-md text-gray-500 leading-snug'>
-					{formatId(data.id)}
-				</div>
+				{data && (
+					<>
+						<h1 className='text-2xl uppercase text-gray-700 leading-5'>
+							{name ?? data.name ?? 'Unknown'}
+						</h1>
+						<div className='text-md text-gray-500 leading-snug'>
+							{formatId(data.id)}
+						</div>
+					</>
+				)}
 			</div>
 			<BrowseButton
 				disabled={id === maxId}
@@ -50,6 +59,10 @@ const PageHeader = ({
 
 export default PageHeader;
 
+interface DeviceHeaderProps extends PageHeaderProps {
+	data: Exclude<EntryData, Pokemon> | null;
+}
+
 export const PageHeaderDevice = ({
 	id,
 	minId,
@@ -61,7 +74,9 @@ export const PageHeaderDevice = ({
 	handleNext,
 	handleSearch,
 	placeholder,
-}: PageHeaderProps & SearchbarProps) => {
+}: DeviceHeaderProps & SearchbarProps) => {
+	name = data?.names.find((entry: any) => entry.language.name === 'en')?.name;
+
 	return (
 		<section className='relative -top-[8px] '>
 			<SearchbarDevice handleSearch={handleSearch} placeholder={placeholder} />
@@ -72,14 +87,25 @@ export const PageHeaderDevice = ({
 						handleClick={handlePrev}
 						src={LeftArrow}
 					/>
+
 					<div className='container-col w-full items-start z-20'>
-						<h1 className='relative container-row text-2xl uppercase text-white leading-5'>
-							<span className='text-base text-stone-400 mr-3'>#{data.id}:</span>
-							<span>{name ?? data.name ?? 'Unknown'}</span>
-							{iconSrc && (
-								<img src={iconSrc} className='right-0 w-8 h-8 ml-1' alt='' />
-							)}
-						</h1>
+						{data && (
+							<>
+								<h1 className='relative container-row text-2xl uppercase text-white leading-5'>
+									<span className='text-base text-stone-400 mr-3'>
+										#{data.id}:
+									</span>
+									<span>{name ?? data.name ?? 'Unknown'}</span>
+									{iconSrc && (
+										<img
+											src={iconSrc}
+											className='right-0 w-8 h-8 ml-1'
+											alt=''
+										/>
+									)}
+								</h1>
+							</>
+						)}
 					</div>
 					<BrowseButton
 						disabled={id === maxId}
@@ -95,7 +121,7 @@ export const PageHeaderDevice = ({
 
 interface BrowseButtonProps {
 	src: string;
-	handleClick: () => void;
+	handleClick?: () => void;
 	disabled?: boolean;
 }
 
@@ -103,7 +129,7 @@ const BrowseButton = ({ src, disabled, handleClick }: BrowseButtonProps) => {
 	return (
 		<button
 			className='disabled:opacity-20 hover:brightness-75 transition-all'
-			disabled={disabled}
+			disabled={disabled || !handleClick}
 			onClick={handleClick}
 		>
 			<img src={src} className='h-5' />
