@@ -1,8 +1,9 @@
 {
 	"name": "pocketdex",
 	"private": true,
-	"version": "0.0.0",
+	"version": "0.5.0",
 	"type": "module",
+	"author": "Francis Borja",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
