@@ -1,3 +1,7 @@
+import { Ability, Item, Move, Pokemon } from 'pokenode-ts';
+
+export type EntryData = Pokemon | Ability | Item | Move;
+
 export type Type =
 	| 'normal'
 	| 'fire'
