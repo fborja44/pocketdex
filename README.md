@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+![title](https://github.com/fborja44/pocketdex/assets/49008508/41a52971-dbb7-44cd-ae10-5b0659bc8338)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fan-made Chrome Extension utility to quickly search for in-game Pokémon data, including species, abilities, moves, and items.
 
-Currently, two official plugins are available:
+## 🛠️ Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+If you would like to contribute, please feel free to reach out!
 
-## Expanding the ESLint configuration
+### 💻 Environment Setup
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+**Prerequisites**
+- node: 20.13.1
+- npm
 
-- Configure the top-level `parserOptions` property like this:
+**Local Instructions**
+1. Clone the repo
+2. `cd` to the root directory run the command `npm install`
+3. Run `npm run dev` to locally run the project
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## 📝 Credits
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Pocketdex is an independent project and is not affiliated with or endorsed by Nintendo, the Pokémon Company, or GAMEFREAK. It does not own or claim any rights to any of their trademarks or intellectual property.
