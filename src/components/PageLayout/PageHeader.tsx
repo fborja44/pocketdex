@@ -104,7 +104,7 @@ export const DeviceBar = ({
 	iconSrc,
 }: DeviceBarProps) => {
 	return (
-		<div className='container-row device-bg w-full h-[45px] border-b-2 border-dex box-content relative'>
+		<div className='container-row device-bg w-full h-[45px] border-b-2 border-dex box-content relative z-50'>
 			<div className='flex flex-row items-center w-full px-2 '>
 				{!simple && data && (
 					<BrowseButton
