@@ -10,7 +10,7 @@ const HomePage = () => {
 	return (
 		<PageLayout>
 			<section className='container-col h-full justify-between py-2.5'>
-				<HomeButton to='/pokemon' imgSrc={Dex}>
+				<HomeButton to='/pokemon/1' imgSrc={Dex}>
 					Pokédex
 				</HomeButton>
 				<HomeButton to='/ability' imgSrc={Ability}>
@@ -22,7 +22,7 @@ const HomePage = () => {
 				<HomeButton to='/item' imgSrc={Pouch}>
 					Items
 				</HomeButton>
-				<HomeButton to='/location' imgSrc={Pokeball}>
+				<HomeButton to='/pc' imgSrc={Pokeball}>
 					My PC
 				</HomeButton>
 			</section>

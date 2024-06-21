@@ -13,6 +13,10 @@ import AbilityPage from './pages/AbilityPage.tsx';
 import ItemPage from './pages/ItemPage.tsx';
 import MovePage from './pages/MovePage.tsx';
 import PCPage from './pages/PCPage.tsx';
+import LoadingPage from './pages/LoadingPage.tsx';
+import { PokemonClient } from 'pokenode-ts';
+
+const dex = new PokemonClient();
 
 const router = createHashRouter([
 	{
@@ -25,27 +29,33 @@ const router = createHashRouter([
 				element: <HomePage />,
 			},
 			{
-				path: '/pokemon',
+				path: '/pokemon/:id',
 				element: <SpeciesPage />,
+				loader: async ({ params }) => {
+					const id = params.id;
+					if (!id) return null;
+					return await dex.getPokemonByName(id);
+				},
+				errorElement: <LoadingPage />,
 			},
 			{
-				path: '/settings',
+				path: '/settings/:id',
 				element: <SettingsPage />,
 			},
 			{
-				path: '/ability',
+				path: '/ability/:id',
 				element: <AbilityPage />,
 			},
 			{
-				path: '/move',
+				path: '/move/:id',
 				element: <MovePage />,
 			},
 			{
-				path: '/item',
+				path: '/item/:id',
 				element: <ItemPage />,
 			},
 			{
-				path: '/location',
+				path: '/pc',
 				element: <PCPage />,
 			},
 		],

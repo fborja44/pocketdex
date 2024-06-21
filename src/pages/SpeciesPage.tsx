@@ -1,10 +1,9 @@
 import Searchbar from '../components/Searchbar/Searchbar';
 import TypeBackground from '../components/TypeBackground/TypeBackground';
 import TypeLabel from '../components/TypeLabel/TypeLabel';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import Statbar from '../components/Statbar/Statbar';
 import { Type } from '../types';
-import usePokemon from '../hooks/usePokemon';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { ErrorBody } from './ErrorPage';
 import Token from '../components/Token/Token';
@@ -13,29 +12,17 @@ import Pokeball from '../components/Pokeball/Pokeball';
 import PageHeader from '../components/PageLayout/PageHeader';
 import { MAX_POKEMON_ID, MIN_POKEMON_ID } from '../constants';
 import LoadingPage from './LoadingPage';
+import { useLoaderData } from 'react-router-dom';
+import { Pokemon } from 'pokenode-ts';
 
 const SpeciesPage = () => {
-	const [id, setId] = useState<number>(1);
-
-	const { pokemon, error, loading, fetchPokemon } = usePokemon();
+	const pokemon = useLoaderData() as Pokemon | null;
 
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
-	const handleBrowse = (newId: number) => {
-		setId(newId);
-		fetchPokemon(newId.toString());
-	};
-
-	const handleSearch = async (searchTerm: string | number) => {
-		const searchPokemon = await fetchPokemon(
-			searchTerm.toString().toLowerCase()
-		);
-		setId((prevId) => searchPokemon?.id ?? prevId);
-	};
-
-	if (error && loading) {
-		return null;
-	}
+	// if (error && loading) {
+	// 	return null;
+	// }
 
 	if (!pokemon) {
 		return <LoadingPage />;
@@ -52,20 +39,14 @@ const SpeciesPage = () => {
 
 	return (
 		<PageLayout>
-			{!error ? (
+			{pokemon ? (
 				<>
 					<TypeBackground type={pokemon.types[0].type.name as Type} />
 					<div className='px-2 pt-2'>
-						<Searchbar
-							handleSearch={handleSearch}
-							placeholder='Enter a pokemon...'
-						/>
+						<Searchbar placeholder='Enter a pokemon...' />
 						<PageHeader
-							id={id}
 							minId={MIN_POKEMON_ID}
 							maxId={MAX_POKEMON_ID}
-							handlePrev={() => handleBrowse(id - 1)}
-							handleNext={() => handleBrowse(id + 1)}
 							data={pokemon}
 						/>
 					</div>
