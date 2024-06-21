@@ -3,7 +3,11 @@ interface PageLayoutProps {
 }
 
 const PageLayout = ({ children }: PageLayoutProps) => {
-	return <div className='flex flex-col grow relative w-screen'>{children}</div>;
+	return (
+		<div className='flex flex-col grow relative w-screen max-h-page'>
+			{children}
+		</div>
+	);
 };
 
 export default PageLayout;

@@ -16,12 +16,12 @@ interface PageHeaderProps {
 }
 
 interface SpeciesHeaderProps extends PageHeaderProps {
-	data: Pokemon;
+	data?: Pokemon;
 }
 
 const PageHeader = ({ minId, maxId, data, name }: SpeciesHeaderProps) => {
 	return (
-		<section className='flex flex-row items-start'>
+		<section className='flex flex-row items-start z-10 relative'>
 			{data && (
 				<BrowseButton
 					disabled={data.id === minId}
@@ -33,7 +33,7 @@ const PageHeader = ({ minId, maxId, data, name }: SpeciesHeaderProps) => {
 				{data && (
 					<>
 						<h1 className='text-2xl uppercase text-gray-700 leading-5'>
-							{name ?? data.name ?? 'Unknown'}
+							{name ?? data.name ?? 'Loading'}
 						</h1>
 						<div className='text-md text-gray-500 leading-snug'>
 							{formatId(data.id)}

@@ -21,7 +21,7 @@ const Searchbar = ({ handleSearch, placeholder, device }: SearchbarProps) => {
 
 	if (device) {
 		return (
-			<div className='container-row w-full bg-device-500 border-b-2 border-dex h-[24px] uppercase'>
+			<div className='container-row w-full bg-device-500 border-b-2 border-dex h-[24px] uppercase z-10'>
 				<div className='text-sm text-dex px-2'>Search</div>
 				<input
 					className='px-2 h-full w-full bg-device-400 border-l-2 border-r-2 border-dex-dark outline-none text-sm placeholder:text-stone-500 text-stone-300 uppercase'
@@ -41,7 +41,7 @@ const Searchbar = ({ handleSearch, placeholder, device }: SearchbarProps) => {
 	}
 
 	return (
-		<div className='container-row relative mb-2.5 w-full'>
+		<div className='container-row relative mb-2.5 w-full z-10'>
 			<input
 				className='bg-white w-full text-sm px-2 py-[1px] uppercase placeholder:text-gray-400 text-gray-600 border-b-2 border-r-2 border-twilight outline-none'
 				placeholder={placeholder ?? 'Enter your search'}
