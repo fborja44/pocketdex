@@ -3,7 +3,7 @@ import HomeIcon from '../../assets/sprites/ui/home.png';
 
 const Menubar = () => {
 	return (
-		<nav className='menubar flex flex-row justify-between items-center px-2'>
+		<nav className='menubar flex flex-row justify-between items-center px-2 relative z-50'>
 			<MenuButton to='/pokemon'>Dex</MenuButton>
 			<MenuButton to='/'>
 				<img src={HomeIcon} alt='' />

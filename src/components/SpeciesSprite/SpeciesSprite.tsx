@@ -18,7 +18,7 @@ const SpeciesSprite = ({ pokemon, handleClick }: SpeciesSpriteProps) => {
 				''
 			}
 			alt=''
-			className='absolute scale-175 bottom-12 hover:cursor-pointer z-0 object-none object-bottom w-full h-32'
+			className='absolute scale-175 bottom-12 z-0 object-none object-bottom w-full h-32'
 		/>
 	);
 };
