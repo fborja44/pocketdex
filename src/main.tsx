@@ -13,16 +13,23 @@ import AbilityPage from './pages/AbilityPage.tsx';
 import ItemPage from './pages/ItemPage.tsx';
 import MovePage from './pages/MovePage.tsx';
 import PCPage from './pages/PCPage.tsx';
-import LoadingPage from './pages/LoadingPage.tsx';
-import { PokemonClient } from 'pokenode-ts';
-
-const dex = new PokemonClient();
+import Layout from './Layout.tsx';
+import {
+	abilityLoader,
+	itemLoader,
+	moveLoader,
+	pokemonLoader,
+} from './router/loaders.ts';
 
 const router = createHashRouter([
 	{
 		path: '/',
 		element: <App />,
-		errorElement: <ErrorPage />,
+		errorElement: (
+			<Layout>
+				<ErrorPage />
+			</Layout>
+		),
 		children: [
 			{
 				path: '/',
@@ -31,32 +38,34 @@ const router = createHashRouter([
 			{
 				path: '/pokemon/:id',
 				element: <SpeciesPage />,
-				loader: async ({ params }) => {
-					const id = params.id;
-					if (!id) return null;
-					return await dex.getPokemonByName(id);
-				},
-				errorElement: <LoadingPage />,
-			},
-			{
-				path: '/settings/:id',
-				element: <SettingsPage />,
+				loader: pokemonLoader,
+				errorElement: <ErrorPage />,
 			},
 			{
 				path: '/ability/:id',
 				element: <AbilityPage />,
+				loader: abilityLoader,
+				errorElement: <ErrorPage />,
 			},
 			{
 				path: '/move/:id',
 				element: <MovePage />,
+				loader: moveLoader,
+				errorElement: <ErrorPage />,
 			},
 			{
 				path: '/item/:id',
 				element: <ItemPage />,
+				loader: itemLoader,
+				errorElement: <ErrorPage />,
 			},
 			{
 				path: '/pc',
 				element: <PCPage />,
+			},
+			{
+				path: '/settings/:id',
+				element: <SettingsPage />,
 			},
 		],
 	},

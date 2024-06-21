@@ -1,35 +1,17 @@
-import { useState } from 'react';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { ErrorBody } from './ErrorPage';
 import { MAX_ABILITY_ID, MIN_ABILITY_ID } from '../constants';
 import { PageHeaderDevice } from '../components/PageLayout/PageHeader';
 import BookOutline from '../assets/sprites/outlined/book.png';
 import PhysicalOutline from '../assets/sprites/outlined/physical.png';
 import MoneyOutline from '../assets/sprites/outlined/coin.png';
 import { Section } from '../components/Section/Section';
-import useItem from '../hooks/useItem';
 import DataGrid, { DataGridEntry } from '../components/DataGrid/DataGrid';
 import { Item } from 'pokenode-ts';
 import LoadingPage from './LoadingPage';
+import { useLoaderData } from 'react-router-dom';
 
 const ItemPage = () => {
-	const [id, setId] = useState<number>(1);
-
-	const { item, error, loading, fetchItem } = useItem();
-
-	const handleBrowse = (newId: number) => {
-		setId(newId);
-		fetchItem(newId.toString().toLowerCase());
-	};
-
-	const handleSearch = async (searchTerm: string | number) => {
-		const data = await fetchItem(searchTerm.toString().toLowerCase());
-		setId((prevId) => data?.id ?? prevId);
-	};
-
-	if (error && loading) {
-		return null;
-	}
+	const item = useLoaderData() as Item;
 
 	const content = item ? <ItemPageContent item={item} /> : <LoadingPage />;
 
@@ -40,18 +22,14 @@ const ItemPage = () => {
 	return (
 		<PageLayout>
 			<PageHeaderDevice
-				id={id}
 				minId={MIN_ABILITY_ID}
 				maxId={MAX_ABILITY_ID}
-				handlePrev={() => handleBrowse(id - 1)}
-				handleNext={() => handleBrowse(id + 1)}
 				data={item}
 				name={name}
 				iconSrc={item?.sprites.default}
-				handleSearch={handleSearch}
 				placeholder={'Enter an item...'}
 			/>
-			{!error ? content : <ErrorBody>Failed to find item data.</ErrorBody>}
+			{content}
 		</PageLayout>
 	);
 };

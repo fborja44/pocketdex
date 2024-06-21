@@ -13,13 +13,13 @@ const HomePage = () => {
 				<HomeButton to='/pokemon/1' imgSrc={Dex}>
 					Pokédex
 				</HomeButton>
-				<HomeButton to='/ability' imgSrc={Ability}>
+				<HomeButton to='/ability/1' imgSrc={Ability}>
 					Abilities
 				</HomeButton>
-				<HomeButton to='/move' imgSrc={Case}>
+				<HomeButton to='/move/1' imgSrc={Case}>
 					Moves & TMs
 				</HomeButton>
-				<HomeButton to='/item' imgSrc={Pouch}>
+				<HomeButton to='/item/1' imgSrc={Pouch}>
 					Items
 				</HomeButton>
 				<HomeButton to='/pc' imgSrc={Pokeball}>

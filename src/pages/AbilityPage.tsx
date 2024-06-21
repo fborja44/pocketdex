@@ -1,7 +1,4 @@
-import { useState } from 'react';
 import PageLayout from '../components/PageLayout/PageLayout';
-import useAbility from '../hooks/useAbility';
-import { ErrorBody } from './ErrorPage';
 import { MAX_ABILITY_ID, MIN_ABILITY_ID } from '../constants';
 import { PageHeaderDevice } from '../components/PageLayout/PageHeader';
 import { parseAbilityEffects } from '../utils/string';
@@ -10,25 +7,10 @@ import TreeOutline from '../assets/sprites/outlined/tree.png';
 import { Section } from '../components/Section/Section';
 import LoadingPage from './LoadingPage';
 import { Ability } from 'pokenode-ts';
+import { useLoaderData } from 'react-router-dom';
 
 const AbilityPage = () => {
-	const [id, setId] = useState<number>(1);
-
-	const { ability, error, loading, fetchAbility } = useAbility();
-
-	const handleBrowse = (newId: number) => {
-		setId(newId);
-		fetchAbility(newId.toString().toLowerCase());
-	};
-
-	const handleSearch = async (searchTerm: string | number) => {
-		const data = await fetchAbility(searchTerm.toString().toLowerCase());
-		setId((prevId) => data?.id ?? prevId);
-	};
-
-	if (error && loading) {
-		return null;
-	}
+	const ability = useLoaderData() as Ability;
 
 	const content = ability ? (
 		<AbilityPageContent ability={ability} />
@@ -41,16 +23,12 @@ const AbilityPage = () => {
 	return (
 		<PageLayout>
 			<PageHeaderDevice
-				id={id}
+				data={ability}
 				minId={MIN_ABILITY_ID}
 				maxId={MAX_ABILITY_ID}
-				handlePrev={() => handleBrowse(id - 1)}
-				handleNext={() => handleBrowse(id + 1)}
-				data={ability}
-				handleSearch={handleSearch}
 				placeholder='Enter an ability...'
 			/>
-			{!error ? content : <ErrorBody>Failed to find ability data.</ErrorBody>}
+			{content}
 		</PageLayout>
 	);
 };

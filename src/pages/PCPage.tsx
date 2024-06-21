@@ -13,12 +13,14 @@ const PCPage = () => {
 	return (
 		<PageLayout>
 			<PageHeaderLayout>
-				<DeviceBar id={'PC'} name='My PC' data={null} simple />
+				<DeviceBar name='My PC' simple />
 			</PageHeaderLayout>
 			<div className='p-2'>
 				<div className='grid grid-cols-2 gap-y-1 gap-x-4 items-center'>
 					{pokemon.map((entry) => (
-						<PokemonLabel iconSrc={entry.sprite}>{entry.name}</PokemonLabel>
+						<PokemonLabel iconSrc={entry.sprite} id={entry.id}>
+							{entry.name}
+						</PokemonLabel>
 					))}
 				</div>
 			</div>

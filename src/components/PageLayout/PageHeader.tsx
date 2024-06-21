@@ -10,13 +10,13 @@ import { getBaseRoute } from '../../utils/path';
 interface PageHeaderProps {
 	minId?: string | number;
 	maxId?: string | number;
-	data: EntryData | null;
+	data?: EntryData;
 	name?: string;
 	iconSrc?: string;
 }
 
 interface SpeciesHeaderProps extends PageHeaderProps {
-	data: Pokemon | null;
+	data: Pokemon;
 }
 
 const PageHeader = ({ minId, maxId, data, name }: SpeciesHeaderProps) => {
@@ -55,7 +55,7 @@ const PageHeader = ({ minId, maxId, data, name }: SpeciesHeaderProps) => {
 export default PageHeader;
 
 interface DeviceHeaderProps extends PageHeaderProps {
-	data: Exclude<EntryData, Pokemon> | null;
+	data: Exclude<EntryData, Pokemon>;
 }
 
 interface PageHeaderLayoutProps {

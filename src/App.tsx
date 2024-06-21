@@ -1,15 +1,12 @@
 import { Outlet } from 'react-router-dom';
 import './css/tailwind.css';
-import Menubar from './components/Menubar/Menubar';
-import Titlebar from './components/Titlebar/Titlebar';
+import Layout from './Layout';
 
 function App() {
 	return (
-		<main className='overflow-hidden flex flex-col h-screen'>
-			<Titlebar />
+		<Layout>
 			<Outlet />
-			<Menubar />
-		</main>
+		</Layout>
 	);
 }
 

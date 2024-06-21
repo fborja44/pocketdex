@@ -72,7 +72,7 @@ const SpeciesPage = () => {
 							<Token>evolution</Token>
 							<Token>movelist</Token>
 						</section>
-						<section className='flex flex-col'>
+						<section className='flex flex-col grow'>
 							<h2 className='text-lg'>Base Stats</h2>
 							<div className='grid grid-cols-stats items-center gap-x-1'>
 								{pokemon.stats.map((statData) => (
