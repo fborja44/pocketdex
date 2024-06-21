@@ -48,7 +48,7 @@ html {
 
 .titlebar {
 	background-image: url(../assets/sprites/ui/titlebar.png);
-	height: 38px;
+	height: 30px;
 }
 
 .menubar {
@@ -69,7 +69,7 @@ html {
 .label-l {
 	background-image: url(../assets/sprites/ui/label-l.png);
 	height: 30px;
-	width: 8px;
+	width: 7px;
 }
 
 .label-m {
@@ -80,13 +80,13 @@ html {
 .label-r {
 	background-image: url(../assets/sprites/ui/label-r.png);
 	height: 30px;
-	width: 8px;
+	width: 7px;
 }
 
 .pkm-label:hover .label-l {
 	background-image: url(../assets/sprites/ui/label-l-selected.png) !important;
 	height: 30px;
-	width: 8px;
+	width: 7px;
 }
 
 .pkm-label:hover .label-m {
@@ -97,7 +97,7 @@ html {
 .pkm-label:hover .label-r {
 	background-image: url(../assets/sprites/ui/label-r-selected.png) !important;
 	height: 30px;
-	width: 8px;
+	width: 7px;
 }
 
 .device-bg {

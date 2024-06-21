@@ -6,6 +6,27 @@ import { EntryData } from '../../types';
 import { Pokemon } from 'pokenode-ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getBaseRoute } from '../../utils/path';
+import { AnimatePresence, motion } from 'framer-motion';
+
+interface DeviceHeaderLayoutProps {
+	children: React.ReactNode;
+}
+
+export const DeviceHeaderLayout = ({ children }: DeviceHeaderLayoutProps) => {
+	return (
+		<AnimatePresence mode='wait'>
+			<motion.section
+				key='anim-header'
+				initial={{ y: -50 }} // Initial position above
+				animate={{ y: 0 }} // Final position (normal)
+				transition={{ duration: 0.2 }} // Animation duration
+				className='relative -top-[8px] '
+			>
+				{children}
+			</motion.section>
+		</AnimatePresence>
+	);
+};
 
 interface PageHeaderProps {
 	minId?: string | number;
@@ -21,7 +42,7 @@ interface SpeciesHeaderProps extends PageHeaderProps {
 
 const PageHeader = ({ minId, maxId, data, name }: SpeciesHeaderProps) => {
 	return (
-		<section className='flex flex-row items-start z-10 relative'>
+		<section className='flex flex-row items-start z-20 relative'>
 			{data && (
 				<BrowseButton
 					disabled={data.id === minId}
@@ -58,14 +79,6 @@ interface DeviceHeaderProps extends PageHeaderProps {
 	data: Exclude<EntryData, Pokemon>;
 }
 
-interface PageHeaderLayoutProps {
-	children: React.ReactNode;
-}
-
-export const PageHeaderLayout = ({ children }: PageHeaderLayoutProps) => {
-	return <section className='relative -top-[8px] '>{children}</section>;
-};
-
 export const PageHeaderDevice = ({
 	minId,
 	maxId,
@@ -78,7 +91,7 @@ export const PageHeaderDevice = ({
 	name = data?.names.find((entry: any) => entry.language.name === 'en')?.name;
 
 	return (
-		<PageHeaderLayout>
+		<DeviceHeaderLayout>
 			<Searchbar handleSearch={handleSearch} placeholder={placeholder} device />
 			<DeviceBar
 				minId={minId}
@@ -87,7 +100,7 @@ export const PageHeaderDevice = ({
 				name={name}
 				iconSrc={iconSrc}
 			/>
-		</PageHeaderLayout>
+		</DeviceHeaderLayout>
 	);
 };
 
@@ -104,7 +117,7 @@ export const DeviceBar = ({
 	iconSrc,
 }: DeviceBarProps) => {
 	return (
-		<div className='container-row device-bg w-full h-[45px] border-b-2 border-dex box-content relative z-50'>
+		<div className='container-row device-bg w-full h-[45px] border-b-2 border-dex box-content relative z-20'>
 			<div className='flex flex-row items-center w-full px-2 '>
 				{!simple && data && (
 					<BrowseButton

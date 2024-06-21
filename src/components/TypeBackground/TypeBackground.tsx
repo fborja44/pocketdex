@@ -12,7 +12,7 @@ const TypeBackground = ({ type }: TypeBackgroundProps) => {
 
 	return (
 		<div
-			className={`absolute container-center bg-gradient-to-br ${bg} left-1/2 -translate-x-1/2 -translate-y-32  w-[300px] h-[300px] self-center rounded-full shadow-md -z-10`}
+			className={`absolute container-center bg-gradient-to-br ${bg} left-1/2 -translate-x-1/2 -translate-y-32  w-[300px] h-[300px] self-center rounded-full shadow-md -z-20`}
 		>
 			<img
 				src={`/assets/svg/types/${type}.svg`}

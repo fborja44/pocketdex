@@ -1,11 +1,13 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import './css/tailwind.css';
 import Layout from './Layout';
 
 function App() {
+	const { pathname } = useLocation();
+
 	return (
 		<Layout>
-			<Outlet />
+			<Outlet key={pathname} />
 		</Layout>
 	);
 }
