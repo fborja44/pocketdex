@@ -69,7 +69,7 @@ html {
 .label-l {
 	background-image: url(../assets/sprites/ui/label-l.png);
 	height: 30px;
-	width: 7px;
+	width: 8px;
 }
 
 .label-m {
@@ -80,7 +80,24 @@ html {
 .label-r {
 	background-image: url(../assets/sprites/ui/label-r.png);
 	height: 30px;
-	width: 7px;
+	width: 8px;
+}
+
+.pkm-label:hover .label-l {
+	background-image: url(../assets/sprites/ui/label-l-selected.png) !important;
+	height: 30px;
+	width: 8px;
+}
+
+.pkm-label:hover .label-m {
+	background-image: url(../assets/sprites/ui/label-m-selected.png) !important;
+	height: 30px;
+}
+
+.pkm-label:hover .label-r {
+	background-image: url(../assets/sprites/ui/label-r-selected.png) !important;
+	height: 30px;
+	width: 8px;
 }
 
 .device-bg {

@@ -18,7 +18,11 @@ const PCPage = () => {
 			<div className='p-2'>
 				<div className='grid grid-cols-2 gap-y-1 gap-x-4 items-center'>
 					{pokemon.map((entry) => (
-						<PokemonLabel iconSrc={entry.sprite} id={entry.id}>
+						<PokemonLabel
+							key={`label-${entry.id}`}
+							iconSrc={entry.sprite}
+							id={entry.id}
+						>
 							{entry.name}
 						</PokemonLabel>
 					))}
