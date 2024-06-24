@@ -28,6 +28,24 @@ html {
 	color: theme('colors.gray.700');
 }
 
+/** Scrollbar **/
+::-webkit-scrollbar {
+	width: 4px;
+}
+
+::-webkit-scrollbar-track {
+	background: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+	background: theme('colors.gray.400');
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: theme('colors.gray.500');
+}
+
 .container-center {
 	display: flex;
 	justify-content: center;
@@ -80,24 +98,19 @@ html {
 .label-r {
 	background-image: url(../assets/sprites/ui/label-r.png);
 	height: 30px;
-	width: 7px;
+	width: 8px;
 }
 
 .pkm-label:hover .label-l {
 	background-image: url(../assets/sprites/ui/label-l-selected.png) !important;
-	height: 30px;
-	width: 7px;
 }
 
 .pkm-label:hover .label-m {
 	background-image: url(../assets/sprites/ui/label-m-selected.png) !important;
-	height: 30px;
 }
 
 .pkm-label:hover .label-r {
 	background-image: url(../assets/sprites/ui/label-r-selected.png) !important;
-	height: 30px;
-	width: 7px;
 }
 
 .device-bg {
@@ -107,8 +120,7 @@ html {
 }
 
 .pc-sprite {
-	object-position: 0px -10px;
-	width: 50px;
+	object-fit: none;
+	object-position: -20px -12px;
 	position: absolute;
-	left: -10px;
 }

@@ -9,3 +9,18 @@ export const getBaseRoute = (path: string) => {
 
 	return '/';
 };
+
+export const getIdFromRoute = (path: string) => {
+	// Split the path by '/' and filter out empty strings
+	const pathSegments = path.split('/').filter((segment) => segment !== '');
+
+	// Get the id from the end of the path
+	if (pathSegments.length > 0) {
+		const last = pathSegments.pop();
+		if (last) {
+			return parseInt(last);
+		}
+	}
+
+	return undefined;
+};

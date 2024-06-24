@@ -4,7 +4,7 @@ import { AppState } from '../redux/reducers/rootReducer';
 import PokemonLabel from '../components/PokemonLabel/PokemonLabel';
 import {
 	DeviceBar,
-	PageHeaderLayout,
+	DeviceHeaderLayout,
 } from '../components/PageLayout/PageHeader';
 
 const PCPage = () => {
@@ -12,11 +12,11 @@ const PCPage = () => {
 
 	return (
 		<PageLayout>
-			<PageHeaderLayout>
+			<DeviceHeaderLayout>
 				<DeviceBar name='My PC' simple />
-			</PageHeaderLayout>
+			</DeviceHeaderLayout>
 			<div className='p-2'>
-				<div className='grid grid-cols-2 gap-y-1 gap-x-4 items-center'>
+				<div className='grid grid-cols-2 gap-y-3 gap-x-4 items-center'>
 					{pokemon.map((entry) => (
 						<PokemonLabel
 							key={`label-${entry.id}`}
