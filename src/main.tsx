@@ -40,6 +40,20 @@ const router = createHashRouter([
 				element: <SpeciesPage />,
 				loader: pokemonLoader,
 				errorElement: <ErrorPage />,
+				children: [
+					{
+						path: '',
+					},
+					{
+						path: 'bio',
+					},
+					{
+						path: 'evo',
+					},
+					{
+						path: 'movelist',
+					},
+				],
 			},
 			{
 				path: '/ability/:id',

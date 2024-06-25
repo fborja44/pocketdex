@@ -16,7 +16,10 @@ export const dexLoader = async (
 };
 
 export const pokemonLoader: LoaderFunction<any> = async ({ params }) => {
-	return dexLoader(params, pokemonClient, 'getPokemonByName');
+	return {
+		pokemon: await dexLoader(params, pokemonClient, 'getPokemonByName'),
+		species: await dexLoader(params, pokemonClient, 'getPokemonSpeciesByName'),
+	};
 };
 
 export const abilityLoader: LoaderFunction<any> = async ({ params }) => {

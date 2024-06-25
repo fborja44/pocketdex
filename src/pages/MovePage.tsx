@@ -19,8 +19,6 @@ const MovePage = () => {
 
 	console.log(move);
 
-	move.learned_by_pokemon;
-
 	return (
 		<PageLayout>
 			<PageHeaderDevice
