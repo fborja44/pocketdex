@@ -17,9 +17,9 @@ export const DeviceHeaderLayout = ({ children }: DeviceHeaderLayoutProps) => {
 		<AnimatePresence mode='wait'>
 			<motion.section
 				key='anim-header'
-				initial={{ y: -50 }} // Initial position above
-				animate={{ y: 0 }} // Final position (normal)
-				transition={{ duration: 0.2 }} // Animation duration
+				// initial={{ y: -50 }} // Initial position above
+				// animate={{ y: 0 }} // Final position (normal)
+				// transition={{ duration: 0.2 }} // Animation duration
 				className='relative -top-[8px] '
 			>
 				{children}
