@@ -31,3 +31,23 @@ export const parseAbilityEffects = (str: string | undefined): string[] => {
 
 	return [battle, overworld];
 };
+
+export const dmToImperial = (dm: number): string => {
+	// Convert decimeters to inches
+	const totalInches = dm * 3.93701;
+
+	// Calculate feet and remaining inches
+	const feet = Math.floor(totalInches / 12);
+	const inches = Math.round(totalInches % 12);
+
+	// Format the result as X'XX"
+	return `${feet}'${inches}"`;
+};
+
+export const hgToPounds = (hg: number, decimalPlaces: number = 2): string => {
+	// Convert hectograms to pounds
+	const pounds = hg * 0.220462;
+
+	// Format the result to the specified number of decimal places
+	return `${pounds.toFixed(decimalPlaces)} lbs`;
+};

@@ -16,7 +16,7 @@ export const initialState: PCState = {
 	items: [],
 };
 
-const pcActions = createReducer(initialState, (builder) => {
+const pcReducer = createReducer(initialState, (builder) => {
 	builder
 		.addCase(catchPokemon, (state, action) => {
 			const id = action.payload.id;
@@ -31,4 +31,4 @@ const pcActions = createReducer(initialState, (builder) => {
 		});
 });
 
-export default pcActions;
+export default pcReducer;

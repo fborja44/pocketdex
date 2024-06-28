@@ -45,6 +45,9 @@ export default {
 			height: {
 				page: `calc(100vh - 28px - 38px)`,
 			},
+			maxHeight: {
+				page: `calc(100vh - 28px - 38px)`,
+			},
 			shadow: {
 				text: 'text-shadow: 2px 0px 0px #000',
 				menu: 'text-shadow: 2px 0px 0px #9C9C9C',

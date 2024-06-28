@@ -1,15 +1,14 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import './css/tailwind.css';
-import Menubar from './components/Menubar/Menubar';
-import Titlebar from './components/Titlebar/Titlebar';
+import Layout from './Layout';
 
 function App() {
+	const { pathname } = useLocation();
+
 	return (
-		<main className='overflow-hidden flex flex-col h-screen'>
-			<Titlebar />
-			<Outlet />
-			<Menubar />
-		</main>
+		<Layout>
+			<Outlet key={pathname} />
+		</Layout>
 	);
 }
 

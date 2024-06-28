@@ -2,46 +2,83 @@ import Searchbar from '../components/Searchbar/Searchbar';
 import TypeBackground from '../components/TypeBackground/TypeBackground';
 import TypeLabel from '../components/TypeLabel/TypeLabel';
 import { useRef, useState } from 'react';
-import Statbar from '../components/Statbar/Statbar';
-import { Type } from '../types';
-import usePokemon from '../hooks/usePokemon';
+import { Gender, Type } from '../types';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { ErrorBody } from './ErrorPage';
 import Token from '../components/Token/Token';
-import SpeciesSprite from '../components/SpeciesSprite/SpeciesSprite';
+import SpeciesSprite from '../components/Species/SpeciesSprite/SpeciesSprite';
 import Pokeball from '../components/Pokeball/Pokeball';
 import PageHeader from '../components/PageLayout/PageHeader';
 import { MAX_POKEMON_ID, MIN_POKEMON_ID } from '../constants';
 import LoadingPage from './LoadingPage';
+import { Route, Routes, useLoaderData } from 'react-router-dom';
+import { EvolutionChain, Pokemon, PokemonSpecies } from 'pokenode-ts';
+import SpeciesStats from '../components/Species/SpeciesStats/SpeciesStats';
+import SpeciesBio from '../components/Species/SpeciesBio/SpeciesBio';
+import SpeciesMoves from '../components/Species/SpeciesMoves/SpeciesMoves';
+import GenderButton from '../components/GenderButton/GenderButton';
+import SpeciesEvo from '../components/Species/SpeciesEvo/SpeciesEvo';
 
 const SpeciesPage = () => {
-	const [id, setId] = useState<number>(1);
-
-	const { pokemon, error, loading, fetchPokemon } = usePokemon();
-
-	const audioRef = useRef<HTMLAudioElement | null>(null);
-
-	const handleBrowse = (newId: number) => {
-		setId(newId);
-		fetchPokemon(newId.toString());
+	const { pokemon, species, evolution } = useLoaderData() as {
+		pokemon: Pokemon;
+		species: PokemonSpecies;
+		evolution: EvolutionChain;
 	};
 
-	const handleSearch = async (searchTerm: string | number) => {
-		const searchPokemon = await fetchPokemon(
-			searchTerm.toString().toLowerCase()
-		);
-		setId((prevId) => searchPokemon?.id ?? prevId);
-	};
-
-	if (error && loading) {
-		return null;
-	}
-
-	if (!pokemon) {
-		return <LoadingPage />;
-	}
+	const content = pokemon ? (
+		<SpeciesPageContent
+			pokemon={pokemon}
+			species={species}
+			evolution={evolution}
+		/>
+	) : (
+		<LoadingPage />
+	);
 
 	console.log(pokemon);
+	console.log(species);
+	console.log(evolution);
+
+	return (
+		<PageLayout>
+			<TypeBackground type={pokemon?.types[0].type.name as Type} />
+			<div className='px-2 pt-2'>
+				<Searchbar placeholder='Enter a pokemon...' />
+				<PageHeader
+					minId={MIN_POKEMON_ID}
+					maxId={MAX_POKEMON_ID}
+					data={pokemon}
+				/>
+			</div>
+			{content}
+		</PageLayout>
+	);
+};
+
+export default SpeciesPage;
+
+interface SpeciesPageContent {
+	pokemon: Pokemon;
+	species: PokemonSpecies;
+	evolution: EvolutionChain;
+}
+
+const SpeciesPageContent = ({
+	pokemon,
+	species,
+	evolution,
+}: SpeciesPageContent) => {
+	const single_gender = species.gender_rate === 0 || species.gender_rate === 8;
+
+	const [gender, setGender] = useState<Gender>(
+		species.gender_rate < 0
+			? 'genderless'
+			: species.gender_rate === 8
+			? 'female'
+			: 'male'
+	);
+
+	const audioRef = useRef<HTMLAudioElement | null>(null);
 
 	const playCry = () => {
 		if (audioRef?.current) {
@@ -51,123 +88,53 @@ const SpeciesPage = () => {
 	};
 
 	return (
-		<PageLayout>
-			{!error ? (
-				<>
-					<TypeBackground type={pokemon.types[0].type.name as Type} />
-					<div className='px-2 pt-2'>
-						<Searchbar
-							handleSearch={handleSearch}
-							placeholder='Enter a pokemon...'
-						/>
-						<PageHeader
-							id={id}
-							minId={MIN_POKEMON_ID}
-							maxId={MAX_POKEMON_ID}
-							handlePrev={() => handleBrowse(id - 1)}
-							handleNext={() => handleBrowse(id + 1)}
-							data={pokemon}
-						/>
-					</div>
-					<div className='flex items-end self-center h-24'>
-						<SpeciesSprite pokemon={pokemon} handleClick={playCry} />
-					</div>
-					<div className='px-2'>
-						<section className='container-row justify-between mt-9 text-sm z-10 w-11/12 mx-auto'>
-							<Pokeball pokemon={pokemon} />
-							<div className='container-row gap-x-2'>
-								{pokemon.types.map((entry) => (
-									<TypeLabel
-										type={entry.type.name as Type}
-										key={`${entry.type.name}-label`}
-									/>
-								))}
-							</div>
-							<button>Male</button>
-						</section>
-						<section className='flex flex-row justify-between mt-4 mb-3'>
-							<Token>bio</Token>
-							<Token>base stats</Token>
-							<Token>evolution</Token>
-							<Token>movelist</Token>
-						</section>
-						<section className='flex flex-col'>
-							<h2 className='text-lg'>Base Stats</h2>
-							<div className='grid grid-cols-stats items-center gap-x-1'>
-								{pokemon.stats.map((statData) => (
-									<SpeciesStat statData={statData} key={statData.stat.name} />
-								))}
-							</div>
-						</section>
-					</div>
-					<audio ref={audioRef} src={(pokemon as any).cries.latest}></audio>
-				</>
-			) : (
-				<ErrorBody>Failed to find species data.</ErrorBody>
-			)}
-		</PageLayout>
-	);
-};
-
-export default SpeciesPage;
-
-interface SpeciesStatProps {
-	statData: {
-		base_stat: number;
-		effort: number;
-		stat: {
-			name: string;
-			url: string;
-		};
-	};
-}
-
-const SpeciesStat = ({ statData }: SpeciesStatProps) => {
-	switch (statData.stat.name) {
-		case 'hp': {
-			statData.stat.name = 'health';
-			break;
-		}
-		case 'special-attack': {
-			statData.stat.name = 'sp. attack';
-			break;
-		}
-		case 'special-defense': {
-			statData.stat.name = 'sp. def';
-			break;
-		}
-	}
-	// Calculate width of stat bar display
-	const width =
-		Math.min(Math.floor((statData.base_stat / 255) * 150 * 1.2), 150) + 'px';
-
-	let color = '';
-	if (statData.base_stat >= 185) {
-		color = 'bg-cyan-500';
-	} else if (statData.base_stat >= 120) {
-		color = 'bg-green-500';
-	} else if (statData.base_stat >= 100) {
-		color = 'bg-lime-500';
-	} else if (statData.base_stat >= 80) {
-		color = 'bg-yellow-500';
-	} else if (statData.base_stat >= 50) {
-		color = 'bg-orange-500';
-	} else {
-		color = 'bg-red-500';
-	}
-
-	return (
 		<>
-			<div className='text-sm capitalize'>{statData.stat.name}</div>
-			<div className='text-md justify-self-center'>{statData.base_stat}</div>
-			<div className='relative'>
-				<Statbar />
-				<span
-					style={{ width: width }}
-					className={`${color} h-[3px] absolute bottom-[4px] left-[3px]`}
-				></span>{' '}
-				{/* 150px = 100% = 255 points */}
+			<div className='flex items-end self-center h-52 w-full relative mb-2'>
+				<SpeciesSprite
+					pokemon={pokemon}
+					handleClick={playCry}
+					gender={gender}
+				/>
 			</div>
+			<div className='flex flex-col box-border min-h-64 grow'>
+				<section className='container-row justify-between text-sm z-10 w-11/12 mx-auto px-2'>
+					<GenderButton
+						value={gender}
+						setValue={setGender}
+						disabled={single_gender}
+					/>
+					<div className='container-row gap-x-2'>
+						{pokemon.types.map((entry) => (
+							<TypeLabel
+								type={entry.type.name as Type}
+								key={`${entry.type.name}-label`}
+							/>
+						))}
+					</div>
+					<Pokeball pokemon={pokemon} />
+				</section>
+				<section className='flex flex-row justify-between mt-3 mb-2 px-2'>
+					<Token to='bio'>bio</Token>
+					<Token to=''>base stats</Token>
+					<Token to='evo'>evolution</Token>
+					<Token to='movelist'>movelist</Token>
+				</section>
+				<div className='overflow-y-auto max-h-[200px]'>
+					<Routes>
+						<Route path='' element={<SpeciesStats pokemon={pokemon} />} />
+						<Route
+							path='bio'
+							element={<SpeciesBio pokemon={pokemon} species={species} />}
+						/>
+						<Route path='evo' element={<SpeciesEvo evolution={evolution} />} />
+						<Route
+							path='movelist'
+							element={<SpeciesMoves pokemon={pokemon} />}
+						/>
+					</Routes>
+				</div>
+			</div>
+			<audio ref={audioRef} src={(pokemon as any).cries.latest}></audio>
 		</>
 	);
 };

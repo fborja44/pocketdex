@@ -31,3 +31,5 @@ export interface SavedPokemon {
 	name: string;
 	sprite: string | undefined;
 }
+
+export type Gender = 'male' | 'female' | 'genderless';

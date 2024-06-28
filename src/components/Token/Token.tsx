@@ -1,16 +1,18 @@
+import { Link } from 'react-router-dom';
+
 interface TokenProps {
 	children: React.ReactNode;
-	handleClick?: () => void;
+	to: string;
 }
 
-const Token = ({ handleClick, children }: TokenProps) => {
+const Token = ({ to, children }: TokenProps) => {
 	return (
-		<div
+		<Link
 			className='rounded-full px-2 shadow bg-white hover:bg-slate-100 hover:cursor-pointer w-fit text-xs transition-colors whitespace-nowrap'
-			onClick={handleClick}
+			to={to}
 		>
 			{children}
-		</div>
+		</Link>
 	);
 };
 

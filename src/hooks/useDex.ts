@@ -4,7 +4,7 @@ import { ItemClient, MoveClient, PokemonClient } from 'pokenode-ts';
 
 const useDex = (
 	dex: PokemonClient | ItemClient | MoveClient,
-	func: string,
+	func: keyof PokemonClient | keyof ItemClient | keyof MoveClient,
 	defaultId: string = '1'
 ) => {
 	const [data, setData] = useState<EntryData | null>(null);

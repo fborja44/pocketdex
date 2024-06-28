@@ -12,8 +12,8 @@ const LoadingPage = () => {
 					repeatType: 'loop',
 					duration: 2, // Shorter duration for smoother spin
 					type: 'spring',
-					stiffness: 100, // Controls the bounce and smoothness
-					damping: 100, // Reduces the oscillation for smooth motion
+					stiffness: 75, // Controls the bounce and smoothness
+					damping: 30, // Reduces the oscillation for smooth motion
 				}}
 				className='w-12 h-12'
 			/>
