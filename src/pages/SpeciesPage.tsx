@@ -96,8 +96,8 @@ const SpeciesPageContent = ({
 					gender={gender}
 				/>
 			</div>
-			<div className='flex flex-col px-2 box-border min-h-64 grow'>
-				<section className='container-row justify-between text-sm z-10 w-11/12 mx-auto'>
+			<div className='flex flex-col box-border min-h-64 grow'>
+				<section className='container-row justify-between text-sm z-10 w-11/12 mx-auto px-2'>
 					<GenderButton
 						value={gender}
 						setValue={setGender}
@@ -113,7 +113,7 @@ const SpeciesPageContent = ({
 					</div>
 					<Pokeball pokemon={pokemon} />
 				</section>
-				<section className='flex flex-row justify-between mt-3 mb-2'>
+				<section className='flex flex-row justify-between mt-3 mb-2 px-2'>
 					<Token to='bio'>bio</Token>
 					<Token to=''>base stats</Token>
 					<Token to='evo'>evolution</Token>

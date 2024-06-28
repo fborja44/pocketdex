@@ -5,7 +5,7 @@ interface SpeciesSectionProps {
 
 const SpeciesSection = ({ children, title }: SpeciesSectionProps) => {
 	return (
-		<section className='flex flex-col grow pb-1'>
+		<section className='flex flex-col grow pb-1 px-2 '>
 			<SpeciesSectionTitle>{title}</SpeciesSectionTitle>
 			<div className='text-stone-500 text-sm'>{children}</div>
 		</section>

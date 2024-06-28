@@ -33,7 +33,7 @@ html {
 
 /** Scrollbar **/
 ::-webkit-scrollbar {
-	width: 4px;
+	width: 3px;
 }
 
 ::-webkit-scrollbar-track {
@@ -126,6 +126,21 @@ html {
 	object-fit: none;
 	object-position: -20px -12px;
 	position: absolute;
+}
+
+.pc-artwork {
+	object-fit: cover;
+	object-position: 0px 0px;
+	width: 32px;
+	height: 32px;
+	position: absolute;
+}
+
+.pc-artwork-uncropped {
+	object-fit: cover;
+	object-position: 0px 0px;
+	width: 32px;
+	height: 32px;
 }
 
 .shadow-button {
