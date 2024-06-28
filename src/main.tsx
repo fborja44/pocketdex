@@ -36,13 +36,13 @@ const router = createHashRouter([
 				element: <HomePage />,
 			},
 			{
-				path: '/pokemon/:id',
+				path: '/pokemon/:id/*',
 				element: <SpeciesPage />,
 				loader: pokemonLoader,
 				errorElement: <ErrorPage />,
 				children: [
 					{
-						path: '',
+						path: '*',
 					},
 					{
 						path: 'bio',
@@ -78,7 +78,7 @@ const router = createHashRouter([
 				element: <PCPage />,
 			},
 			{
-				path: '/settings/:id',
+				path: '/settings',
 				element: <SettingsPage />,
 			},
 		],

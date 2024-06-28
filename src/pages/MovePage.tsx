@@ -11,6 +11,8 @@ import MoveCategoryLabel from '../components/MoveCategoryLabel/MoveCategoryLabel
 import { Move } from 'pokenode-ts';
 import LoadingPage from './LoadingPage';
 import { useLoaderData } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { AppState } from '../redux/reducers/rootReducer';
 
 const MovePage = () => {
 	const move = useLoaderData() as Move;
@@ -39,6 +41,13 @@ interface MovePageContent {
 }
 
 const MovePageContent = ({ move }: MovePageContent) => {
+	const { lang_code } = useSelector((state: AppState) => state.settingsState);
+
+	const effect =
+		move.effect_entries.find((entry) => entry.language.name === lang_code)
+			?.effect ??
+		move.effect_entries.find((entry) => entry.language.name === 'en')?.effect;
+
 	return (
 		<div className='p-2 container-col gap-y-5'>
 			<Section iconSrc={BookOutline} label='Attribute'>
@@ -78,10 +87,7 @@ const MovePageContent = ({ move }: MovePageContent) => {
 				</div>
 			</Section>
 			<Section iconSrc={PokeballOutline} label='Effect'>
-				{
-					move.effect_entries.find((entry) => entry.language.name === 'en')
-						?.effect
-				}
+				{effect}
 			</Section>
 		</div>
 	);

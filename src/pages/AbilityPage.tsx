@@ -43,7 +43,7 @@ interface AbilityPageContent {
 
 const AbilityPageContent = ({ ability }: AbilityPageContent) => {
 	const [battle, overworld] = parseAbilityEffects(
-		ability.effect_entries.find((effect) => effect.language.name === 'en')
+		ability.effect_entries.find((effect) => effect.language.name === 'en') // support only English (for now)
 			?.effect
 	);
 

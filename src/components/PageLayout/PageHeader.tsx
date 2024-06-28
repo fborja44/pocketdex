@@ -7,6 +7,8 @@ import { Pokemon } from 'pokenode-ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getBaseRoute } from '../../utils/path';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../redux/reducers/rootReducer';
 
 interface DeviceHeaderLayoutProps {
 	children: React.ReactNode;
@@ -88,7 +90,13 @@ export const PageHeaderDevice = ({
 	handleSearch,
 	placeholder,
 }: DeviceHeaderProps & SearchbarProps) => {
-	name = data?.names.find((entry: any) => entry.language.name === 'en')?.name;
+	const { lang_code } = useSelector((state: AppState) => state.settingsState);
+
+	// Get proper version of the name + language
+	name =
+		data?.names.find((entry: any) => entry.language.name === lang_code)?.name ??
+		data?.names.find((entry: any) => entry.language.name === 'en')?.name ??
+		name;
 
 	return (
 		<DeviceHeaderLayout>

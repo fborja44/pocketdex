@@ -9,6 +9,8 @@ import DataGrid, { DataGridEntry } from '../components/DataGrid/DataGrid';
 import { Item } from 'pokenode-ts';
 import LoadingPage from './LoadingPage';
 import { useLoaderData } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { AppState } from '../redux/reducers/rootReducer';
 
 const ItemPage = () => {
 	const item = useLoaderData() as Item;
@@ -17,7 +19,11 @@ const ItemPage = () => {
 
 	console.log(item);
 
-	const name = item?.names.find((entry) => entry.language.name === 'en')?.name;
+	const { lang_code } = useSelector((state: AppState) => state.settingsState);
+
+	const name =
+		item?.names.find((entry) => entry.language.name === lang_code)?.name ??
+		item?.names.find((entry) => entry.language.name === 'en')?.name;
 
 	return (
 		<PageLayout>
@@ -41,13 +47,17 @@ interface ItemPageContent {
 }
 
 const ItemPageContent = ({ item }: ItemPageContent) => {
+	const { lang_code } = useSelector((state: AppState) => state.settingsState);
+
+	const effect =
+		item.effect_entries.find((entry) => entry.language.name === lang_code)
+			?.effect ??
+		item.effect_entries.find((entry) => entry.language.name === 'en')?.effect;
+
 	return (
 		<div className='p-2 container-col gap-y-5'>
 			<Section iconSrc={BookOutline} label='Effect'>
-				{
-					item.effect_entries.find((entry) => entry.language.name === 'en')
-						?.effect
-				}
+				{effect}
 			</Section>
 			<Section iconSrc={MoneyOutline} label='Price'>
 				<DataGrid>

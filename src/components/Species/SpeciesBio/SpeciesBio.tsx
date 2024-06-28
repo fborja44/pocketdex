@@ -3,6 +3,8 @@ import SpeciesSection, {
 	SpeciesSectionTitle,
 } from '../SpeciesSection/SpeciesSection';
 import { dmToImperial, hgToPounds } from '../../../utils/string';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../redux/reducers/rootReducer';
 
 interface SpeciesBioProps {
 	pokemon: Pokemon;
@@ -10,6 +12,16 @@ interface SpeciesBioProps {
 }
 
 const SpeciesBio = ({ pokemon, species }: SpeciesBioProps) => {
+	const { lang_code } = useSelector((state: AppState) => state.settingsState);
+
+	const bio =
+		species.flavor_text_entries
+			.find((entry) => entry.language.name === lang_code)
+			?.flavor_text.replace('', '\n') ??
+		species.flavor_text_entries
+			.find((entry) => entry.language.name === 'en')
+			?.flavor_text.replace('', '\n');
+
 	return (
 		<SpeciesSection>
 			<div className='flex flex-row justify-between w-full my-1 px-1'>
@@ -29,11 +41,7 @@ const SpeciesBio = ({ pokemon, species }: SpeciesBioProps) => {
 				</div>
 			</div>
 			<SpeciesSectionTitle>Bio</SpeciesSectionTitle>
-			<div>
-				{species.flavor_text_entries
-					.find((entry) => entry.language.name === 'en')
-					?.flavor_text.replace('', '\n')}
-			</div>
+			<div>{bio}</div>
 		</SpeciesSection>
 	);
 };
