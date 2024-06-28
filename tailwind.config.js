@@ -7,6 +7,10 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['"Power Green Small"', 'Inter', ...defaultTheme.fontFamily.sans],
+				'power-green-small': [
+					'"Power Green Small"',
+					...defaultTheme.fontFamily.sans,
+				],
 			},
 			colors: {
 				twilight: {
