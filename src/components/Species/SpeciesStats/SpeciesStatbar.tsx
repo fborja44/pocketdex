@@ -1,11 +1,15 @@
 import { PokemonStat } from 'pokenode-ts';
 import Statbar from '../../Statbar/Statbar';
+import { motion } from 'framer-motion';
+import { useNavigation } from 'react-router-dom';
 
 interface SpeciesStatbarProps {
 	statData: PokemonStat;
 }
 
 const SpeciesStatbar = ({ statData }: SpeciesStatbarProps) => {
+	const { state } = useNavigation();
+
 	switch (statData.stat.name) {
 		case 'hp': {
 			statData.stat.name = 'health';
@@ -47,10 +51,15 @@ const SpeciesStatbar = ({ statData }: SpeciesStatbarProps) => {
 			<div className='text-lg justify-self-center'>{statData.base_stat}</div>
 			<div className='relative'>
 				<Statbar />
-				<span
-					style={{ width: width }}
+				<motion.span
+					initial={{ width: 0 }}
+					animate={{ width: width }}
+					transition={{
+						duration: state !== 'loading' ? 0.5 : 0,
+						type: 'spring',
+					}}
 					className={`${color} h-[3px] absolute bottom-[4px] left-[3px]`}
-				></span>{' '}
+				/>
 				{/* 150px = 100% = 255 points */}
 			</div>
 		</>
