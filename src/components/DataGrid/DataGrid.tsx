@@ -11,7 +11,7 @@ const DataGrid = ({ children }: DataGridProps) => {
 export default DataGrid;
 
 interface DataGridEntryProps {
-	label: string;
+	label: string | React.ReactNode;
 	children: React.ReactNode;
 	justify?: boolean;
 }

@@ -1,7 +1,15 @@
-import { ItemClient, MoveClient, PokemonClient } from 'pokenode-ts';
+import {
+	EvolutionClient,
+	ItemClient,
+	MoveClient,
+	PokemonClient,
+	PokemonSpecies,
+} from 'pokenode-ts';
 import { LoaderFunction, Params } from 'react-router-dom';
+import { getIdFromRoute } from '../utils/path';
 
 const pokemonClient = new PokemonClient();
+const evolutionClient = new EvolutionClient();
 const moveClient = new MoveClient();
 const itemClient = new ItemClient();
 
@@ -16,9 +24,23 @@ export const dexLoader = async (
 };
 
 export const pokemonLoader: LoaderFunction<any> = async ({ params }) => {
+	const species = (await dexLoader(
+		params,
+		pokemonClient,
+		'getPokemonSpeciesByName'
+	)) as PokemonSpecies;
+
+	// Get evolution data
+	const evo_id = getIdFromRoute(species.evolution_chain.url);
+
+	const evolution = evo_id
+		? await evolutionClient.getEvolutionChainById(evo_id)
+		: null;
+
 	return {
 		pokemon: await dexLoader(params, pokemonClient, 'getPokemonByName'),
-		species: await dexLoader(params, pokemonClient, 'getPokemonSpeciesByName'),
+		species: species,
+		evolution: evolution,
 	};
 };
 

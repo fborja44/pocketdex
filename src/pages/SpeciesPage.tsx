@@ -11,26 +11,33 @@ import PageHeader from '../components/PageLayout/PageHeader';
 import { MAX_POKEMON_ID, MIN_POKEMON_ID } from '../constants';
 import LoadingPage from './LoadingPage';
 import { Route, Routes, useLoaderData } from 'react-router-dom';
-import { Pokemon, PokemonSpecies } from 'pokenode-ts';
+import { EvolutionChain, Pokemon, PokemonSpecies } from 'pokenode-ts';
 import SpeciesStats from '../components/Species/SpeciesStats/SpeciesStats';
 import SpeciesBio from '../components/Species/SpeciesBio/SpeciesBio';
 import SpeciesMoves from '../components/Species/SpeciesMoves/SpeciesMoves';
 import GenderButton from '../components/GenderButton/GenderButton';
+import SpeciesEvo from '../components/Species/SpeciesEvo/SpeciesEvo';
 
 const SpeciesPage = () => {
-	const { pokemon, species } = useLoaderData() as {
+	const { pokemon, species, evolution } = useLoaderData() as {
 		pokemon: Pokemon;
 		species: PokemonSpecies;
+		evolution: EvolutionChain;
 	};
 
 	const content = pokemon ? (
-		<SpeciesPageContent pokemon={pokemon} species={species} />
+		<SpeciesPageContent
+			pokemon={pokemon}
+			species={species}
+			evolution={evolution}
+		/>
 	) : (
 		<LoadingPage />
 	);
 
 	console.log(pokemon);
 	console.log(species);
+	console.log(evolution);
 
 	return (
 		<PageLayout>
@@ -53,9 +60,14 @@ export default SpeciesPage;
 interface SpeciesPageContent {
 	pokemon: Pokemon;
 	species: PokemonSpecies;
+	evolution: EvolutionChain;
 }
 
-const SpeciesPageContent = ({ pokemon, species }: SpeciesPageContent) => {
+const SpeciesPageContent = ({
+	pokemon,
+	species,
+	evolution,
+}: SpeciesPageContent) => {
 	const single_gender = species.gender_rate === 0 || species.gender_rate === 8;
 
 	const [gender, setGender] = useState<Gender>(
@@ -114,6 +126,7 @@ const SpeciesPageContent = ({ pokemon, species }: SpeciesPageContent) => {
 							path='bio'
 							element={<SpeciesBio pokemon={pokemon} species={species} />}
 						/>
+						<Route path='evo' element={<SpeciesEvo evolution={evolution} />} />
 						<Route
 							path='movelist'
 							element={<SpeciesMoves pokemon={pokemon} />}
