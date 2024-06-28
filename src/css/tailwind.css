@@ -2,15 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: 'Power Green Small';
+	src: url(/assets/fonts/PowerGreenSmall.ttf);
+}
+
 @layer base {
-	@font-face {
-		font-family: 'Power Green Small';
-		src: url(/public/assets/fonts/PowerGreenSmall.ttf) format('ttf');
+	html {
+		font-family: 'Power Green Small', system-ui, sans-serif;
 	}
 }
 
 #root {
-	@apply font-sans;
 	box-sizing: border-box;
 }
 
@@ -123,4 +126,8 @@ html {
 	object-fit: none;
 	object-position: -20px -12px;
 	position: absolute;
+}
+
+.shadow-button {
+	text-shadow: 2px 0px 0px #606060;
 }

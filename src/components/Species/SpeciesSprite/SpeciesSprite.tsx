@@ -1,20 +1,32 @@
 import { Pokemon } from 'pokenode-ts';
+import { Gender } from '../../../types';
 
 interface SpeciesSpriteProps {
 	pokemon: Pokemon;
 	handleClick?: () => void;
 	animate?: boolean;
+	gender: Gender;
 }
 
-const SpeciesSprite = ({ pokemon, handleClick }: SpeciesSpriteProps) => {
+const SpeciesSprite = ({
+	pokemon,
+	gender,
+	handleClick,
+}: SpeciesSpriteProps) => {
+	const sprite =
+		pokemon.sprites.front_female && gender === 'female'
+			? 'front_female'
+			: 'front_default';
+
 	return (
 		<img
 			onClick={handleClick}
 			src={
-				pokemon.sprites.versions['generation-v']['black-white'].animated
-					.front_default ??
-				pokemon.sprites.versions['generation-v']['black-white'].front_default ??
-				pokemon.sprites.front_default ??
+				pokemon.sprites.versions['generation-v']['black-white'].animated[
+					sprite
+				] ??
+				pokemon.sprites.versions['generation-v']['black-white'][sprite] ??
+				pokemon.sprites[sprite] ??
 				''
 			}
 			alt=''
