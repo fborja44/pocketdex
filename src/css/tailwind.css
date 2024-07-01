@@ -90,7 +90,7 @@ html {
 .label-r {
 	background-image: url(../assets/sprites/ui/label-r.png);
 	height: 30px;
-	width: 8px;
+	width: 7px;
 }
 
 .pkm-label:hover .label-l {
