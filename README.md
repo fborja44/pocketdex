@@ -26,6 +26,13 @@ If you would like to contribute, please feel free to reach out!
 3. Enable developer mode
 4. Click `Load unpacked` and select the `dist` folder of the project
 
+## App Preview
+
+![home](https://github.com/fborja44/pocketdex/assets/49008508/3f641a79-dae6-4c86-a7e7-fa1ae34bf3ee)
+![pikachu](https://github.com/fborja44/pocketdex/assets/49008508/77dd20de-8468-4fee-9ce3-b7646ba16fb7)
+![volt-tackle](https://github.com/fborja44/pocketdex/assets/49008508/08ef59da-8780-4cf2-804c-1884305657a5)
+
+
 ## 📝 Credits
 
 Pocketdex is an independent project and is not affiliated with or endorsed by Nintendo, the Pokémon Company, or GAMEFREAK. It does not own or claim any rights to any of their trademarks or intellectual property.
