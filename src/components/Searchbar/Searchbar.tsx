@@ -2,6 +2,7 @@ import { useState } from 'react';
 import BallIcon from '../../assets/sprites/ui/caught-ball.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getBaseRoute } from '../../utils/path';
+import { cleanSearch } from '../../utils/string';
 
 export interface SearchbarProps {
 	handleSearch?: (searchTerm: string | number) => void;
@@ -16,7 +17,7 @@ const Searchbar = ({ handleSearch, placeholder, device }: SearchbarProps) => {
 
 	const search = () => {
 		const baseRoute = getBaseRoute(pathname);
-		navigate(`${baseRoute}/${searchTerm}`);
+		navigate(`${baseRoute}/${cleanSearch(searchTerm)}`);
 	};
 
 	if (device) {
@@ -28,6 +29,7 @@ const Searchbar = ({ handleSearch, placeholder, device }: SearchbarProps) => {
 					placeholder={placeholder ?? 'Enter a term...'}
 					value={searchTerm}
 					onChange={(ev) => setSearchTerm(ev.target.value)}
+					maxLength={32}
 				/>
 				<button
 					className='h-full container-center w-[30px] hover:brightness-75'

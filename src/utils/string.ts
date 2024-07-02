@@ -51,3 +51,7 @@ export const hgToPounds = (hg: number, decimalPlaces: number = 2): string => {
 	// Format the result to the specified number of decimal places
 	return `${pounds.toFixed(decimalPlaces)} lbs`;
 };
+
+export const cleanSearch = (str: string): string => {
+	return str.trim().replace(/\s+/g, ' ').replace(/\s/g, '-');
+};
