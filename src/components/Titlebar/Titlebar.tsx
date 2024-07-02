@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/sprites/ui/logo.png';
+import useAudio from '../../hooks/useAudio';
 
 interface TitlebarLinkProps {
 	children: React.ReactNode;
@@ -21,6 +22,8 @@ const TitlebarLink = ({ children, to, external }: TitlebarLinkProps) => {
 };
 
 const Titlebar = () => {
+	const { playAudio } = useAudio('/assets/audio/pb_tray_ball.wav', 0.3);
+
 	return (
 		<header className='flex flex-col'>
 			<div className='titlebar flex flex-row pr-2 uppercase text-white relative z-10'>
@@ -29,6 +32,7 @@ const Titlebar = () => {
 					<Link
 						to='/'
 						className='container-row h-full gap-x-2 text-xl hover:text-dex-light transition-colors'
+						onClick={playAudio}
 					>
 						Pocketdex
 					</Link>

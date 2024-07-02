@@ -1,7 +1,7 @@
 import Searchbar from '../components/Searchbar/Searchbar';
 import TypeBackground from '../components/TypeBackground/TypeBackground';
 import TypeLabel from '../components/TypeLabel/TypeLabel';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Gender, Type } from '../types';
 import PageLayout from '../components/PageLayout/PageLayout';
 import Token from '../components/Token/Token';
@@ -78,23 +78,10 @@ const SpeciesPageContent = ({
 			: 'male'
 	);
 
-	const audioRef = useRef<HTMLAudioElement | null>(null);
-
-	const playCry = () => {
-		if (audioRef?.current) {
-			audioRef.current.volume = 0.05;
-			audioRef.current.play();
-		}
-	};
-
 	return (
 		<>
 			<div className='flex items-end self-center h-52 w-full relative mb-2'>
-				<SpeciesSprite
-					pokemon={pokemon}
-					handleClick={playCry}
-					gender={gender}
-				/>
+				<SpeciesSprite pokemon={pokemon} gender={gender} />
 			</div>
 			<div className='flex flex-col box-border min-h-64 grow'>
 				<section className='container-row justify-between text-sm z-10 w-11/12 mx-auto px-2'>
@@ -134,7 +121,6 @@ const SpeciesPageContent = ({
 					</Routes>
 				</div>
 			</div>
-			<audio ref={audioRef} src={(pokemon as any).cries.latest}></audio>
 		</>
 	);
 };

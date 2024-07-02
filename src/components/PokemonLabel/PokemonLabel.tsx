@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import useAudio from '../../hooks/useAudio';
 
 interface PokemonLabelProps {
 	children: React.ReactNode;
@@ -7,10 +8,13 @@ interface PokemonLabelProps {
 }
 
 const PokemonLabel = ({ children, iconSrc, id }: PokemonLabelProps) => {
+	const { playAudio } = useAudio('/assets/audio/pb_tray_enter.wav');
+
 	return (
 		<Link
 			className='pkm-label flex flex-row gap-0 text-white w-full'
 			to={id ? `/pokemon/${id}` : ''}
+			onClick={playAudio}
 		>
 			<span className='label-l' />
 			<div className='label-m pr-2.5 py-[2px] box-border text-sm relative uppercase w-full '>

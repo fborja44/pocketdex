@@ -1,5 +1,6 @@
 import { Pokemon } from 'pokenode-ts';
 import { Gender } from '../../../types';
+import useAudio from '../../../hooks/useAudio';
 
 interface SpeciesSpriteProps {
 	pokemon: Pokemon;
@@ -13,6 +14,8 @@ const SpeciesSprite = ({
 	gender,
 	handleClick,
 }: SpeciesSpriteProps) => {
+	const { playAudio } = useAudio((pokemon as any).cries.latest, 0.05);
+
 	const sprite =
 		pokemon.sprites.front_female && gender === 'female'
 			? 'front_female'
@@ -20,7 +23,7 @@ const SpeciesSprite = ({
 
 	return (
 		<img
-			onClick={handleClick}
+			onClick={handleClick ?? playAudio}
 			src={
 				pokemon.sprites.versions['generation-v']['black-white'].animated[
 					sprite

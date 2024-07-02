@@ -4,24 +4,27 @@ import RightArrow from '../../assets/sprites/ui/right-arrow.png';
 import Searchbar, { SearchbarProps } from '../Searchbar/Searchbar';
 import { EntryData } from '../../types';
 import { Pokemon } from 'pokenode-ts';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useNavigation } from 'react-router-dom';
 import { getBaseRoute } from '../../utils/path';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../redux/reducers/rootReducer';
+import useAudio from '../../hooks/useAudio';
 
 interface DeviceHeaderLayoutProps {
 	children: React.ReactNode;
 }
 
 export const DeviceHeaderLayout = ({ children }: DeviceHeaderLayoutProps) => {
+	const { state } = useNavigation();
+
 	return (
 		<AnimatePresence mode='wait'>
 			<motion.section
 				key='anim-header'
-				// initial={{ y: -50 }} // Initial position above
-				// animate={{ y: 0 }} // Final position (normal)
-				// transition={{ duration: 0.2 }} // Animation duration
+				initial={{ y: -50 }} // Initial position above
+				animate={{ y: 0 }} // Final position (normal)
+				transition={{ duration: state !== 'loading' ? 0.2 : 0 }} // Animation duration
 				className='relative -top-[8px] '
 			>
 				{children}
@@ -172,9 +175,12 @@ const BrowseButton = ({ src, disabled, newId }: BrowseButtonProps) => {
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
 
+	const { playAudio } = useAudio('/assets/audio/select.wav');
+
 	const handleBrowse = () => {
 		const baseRoute = getBaseRoute(pathname);
 		navigate(`${baseRoute}/${newId}`);
+		playAudio();
 	};
 
 	return (

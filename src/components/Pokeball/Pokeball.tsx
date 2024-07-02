@@ -3,6 +3,7 @@ import { AppState } from '../../redux/reducers/rootReducer';
 import { catchPokemon, releasePokemon } from '../../redux/actions/pcActions';
 import PokeballSprite from '../../assets/sprites/balls/pokeball.png';
 import { Pokemon } from 'pokenode-ts';
+import useAudio from '../../hooks/useAudio';
 
 interface PokeballProps {
 	pokemon: Pokemon;
@@ -10,6 +11,9 @@ interface PokeballProps {
 
 const Pokeball = ({ pokemon }: PokeballProps) => {
 	const dispatch = useDispatch();
+
+	const { playAudio: playAudioCatch } = useAudio('/assets/audio/pb_catch.wav');
+	const { playAudio: playAudioRelease } = useAudio('/assets/audio/pb_rel.wav');
 
 	const { pokemon: savedPokemon } = useSelector(
 		(state: AppState) => state.pcState
@@ -20,8 +24,10 @@ const Pokeball = ({ pokemon }: PokeballProps) => {
 	const handleClick = () => {
 		if (isCaught) {
 			dispatch(releasePokemon(pokemon.id));
+			playAudioRelease();
 		} else {
 			dispatch(catchPokemon(pokemon));
+			playAudioCatch();
 		}
 	};
 
@@ -30,11 +36,7 @@ const Pokeball = ({ pokemon }: PokeballProps) => {
 			<img
 				src={PokeballSprite}
 				alt={isCaught ? 'Release' : 'Catch'}
-				className={`w-5 h-5 ${
-					isCaught
-						? 'hover:brightness-50'
-						: 'brightness-50 hover:brightness-100'
-				}`}
+				className={`w-5 h-5 ${isCaught ? '' : 'brightness-50'}`}
 			/>
 		</button>
 	);

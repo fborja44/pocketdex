@@ -1,3 +1,4 @@
+import useAudio from '../../hooks/useAudio';
 import { Gender } from '../../types';
 
 interface GenderButtonProps {
@@ -45,10 +46,15 @@ const CustomButton = ({
 	color,
 	onClick,
 }: CustomButtonProps) => {
+	const { playAudio } = useAudio('/assets/audio/sparkle.wav');
+
 	return (
 		<button
 			disabled={disabled}
-			onClick={onClick}
+			onClick={() => {
+				onClick();
+				playAudio();
+			}}
 			className={`${color} shadow-button text-3xl leading-[20px] hover:brightness-90 disabled:hover:brightness-100`}
 		>
 			{children}
