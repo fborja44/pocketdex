@@ -93,6 +93,18 @@ html {
 	width: 7px;
 }
 
+.pkm-label .label-l {
+	background-image: url(../assets/sprites/ui/sublabel-l.png) !important;
+}
+
+.pkm-label .label-m {
+	background-image: url(../assets/sprites/ui/sublabel-m.png) !important;
+}
+
+.pkm-label .label-r {
+	background-image: url(../assets/sprites/ui/sublabel-r.png) !important;
+}
+
 .pkm-label:hover .label-l {
 	background-image: url(../assets/sprites/ui/label-l-selected.png) !important;
 }
